@@ -14,10 +14,10 @@ node {
 		}
 	  } else {
 		dir("angular-app") {
-	      bat(/docker build -t angular-app:B${BUILD_NUMBER} -f Dockerfile .\/angular-app/)
+	      bat(/docker build -t angular-app:B${BUILD_NUMBER} -f Dockerfile ./)
 		}
 		dir("node-mongo-app") {
-		  bat(/docker build -t node-mongo-app:B${BUILD_NUMBER} -f Dockerfile .\/node-mongo-app/)
+		  bat(/docker build -t node-mongo-app:B${BUILD_NUMBER} -f Dockerfile ./)
 		}
 	  }
 	}
