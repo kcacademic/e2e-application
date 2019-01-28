@@ -1,0 +1,12 @@
+version: '3'
+services:
+  ui:
+    build: ./angular-app
+    ports:
+     - "4200:4200"
+  api:
+    environment:
+     - MONGODB=mongodb://host.docker.internal/vocabulary
+    build: ./node-mongo-app
+    ports:
+     - "8085:8085"
