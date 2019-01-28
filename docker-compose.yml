@@ -1,12 +1,14 @@
 version: '3'
 services:
   ui:
-    build: ./angular-app
+    #build: ./angular-app
+    image: "angular-app:B${BUILD_NUMBER}"
     ports:
      - "4200:4200"
   api:
     environment:
      - MONGODB=mongodb://host.docker.internal/vocabulary
-    build: ./node-mongo-app
+    #build: ./node-mongo-app
+    image: "node-mongo-app:B${BUILD_NUMBER}"
     ports:
      - "8085:8085"

@@ -6,11 +6,19 @@ node {
 	stage('Docker Build') {
       // Build the application
 	  if (isUnix()) {
-	      sh "docker build -t accountownerapp:B${BUILD_NUMBER} -f Dockerfile ./angular-app"
-		  sh "docker build -t accountownerapp:B${BUILD_NUMBER} -f Dockerfile ./node-mongo-app"
+		dir("angular-app") {
+	      sh "docker build -t angular-app:B${BUILD_NUMBER} -f Dockerfile ."
+		}
+		dir("node-mongo-app") {
+		  sh "docker build -t node-mongo-app:B${BUILD_NUMBER} -f Dockerfile ."
+		}
 	  } else {
-	      bat(/docker build -t accountownerapp:B${BUILD_NUMBER} -f Dockerfile .\/angular-app/)
-		  bat(/docker build -t accountownerapp:B${BUILD_NUMBER} -f Dockerfile .\/node-mongo-app/)
+		dir("angular-app") {
+	      bat(/docker build -t angular-app:B${BUILD_NUMBER} -f Dockerfile .\/angular-app/)
+		}
+		dir("node-mongo-app") {
+		  bat(/docker build -t node-mongo-app:B${BUILD_NUMBER} -f Dockerfile .\/node-mongo-app/)
+		}
 	  }
 	}
 	
