@@ -9,8 +9,8 @@ node {
 	      sh "docker build -t accountownerapp:B${BUILD_NUMBER} -f Dockerfile ./angular-app"
 		  sh "docker build -t accountownerapp:B${BUILD_NUMBER} -f Dockerfile ./node-mongo-app"
 	  } else {
-	      bat(/docker build -t accountownerapp:B${BUILD_NUMBER} -f Dockerfile ./angular-app/)
-		  bat(/docker build -t accountownerapp:B${BUILD_NUMBER} -f Dockerfile ./node-mongo-app/)
+	      bat(/docker build -t accountownerapp:B${BUILD_NUMBER} -f Dockerfile .\/angular-app/)
+		  bat(/docker build -t accountownerapp:B${BUILD_NUMBER} -f Dockerfile .\/node-mongo-app/)
 	  }
 	}
 	
