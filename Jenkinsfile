@@ -1,11 +1,9 @@
 node {
 	stage('SCM Checkout') {
-      // Get some code from a GitHub repository
       git 'https://github.com/kcacademic/e2e-application.git'
 	}
 	
-	stage('Build Application') {
-      // Build the application
+	stage('Application Dependency Installation') {
 	  if (isUnix()) {
 		dir("angular-app") {
 	      sh "npm install"
@@ -18,7 +16,6 @@ node {
 	}
 	
 	stage('Unit Testing') {
-      // Run the unit tests
 	  if (isUnix()) {
 		dir("angular-app") {
 	      sh "npm test"
@@ -31,7 +28,6 @@ node {
 	}
 	
 	stage('Docker Build') {
-      // Build the application
 	  if (isUnix()) {
 		dir("angular-app") {
 	      sh "docker build -t angular-app:B${BUILD_NUMBER} -f Dockerfile ."
@@ -48,7 +44,7 @@ node {
 		}
 	  }
 	}
-	
+	/*
 	stage('Docker Run') {
       // Build the application
 	  if (isUnix()) {
@@ -68,4 +64,5 @@ node {
 	      bat(/echo There are no integration trests defined yet./)
 	  }
 	}
+	*/
 }
