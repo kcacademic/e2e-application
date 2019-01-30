@@ -8,11 +8,11 @@ node {
       // Run the unit tests
 	  if (isUnix()) {
 		dir("angular-app") {
-	      sh "npm test"
+	      sh "npm run ng -- test --single-run true"
 		}
 	  } else {
 		dir("angular-app") {
-	      bat(/npm test/)
+	      bat(/npm run ng -- test --single-run true/)
 		}
 	  }
 	}
