@@ -3,6 +3,20 @@ node {
       // Get some code from a GitHub repository
       git 'https://github.com/kcacademic/e2e-application.git'
 	}
+	
+	stage('Unit Testing') {
+      // Run the unit tests
+	  if (isUnix()) {
+		dir("angular-app") {
+	      sh "ng test --single-run true"
+		}
+	  } else {
+		dir("angular-app") {
+	      bat(/ng test --single-run true/)
+		}
+	  }
+	}
+	
 	stage('Docker Build') {
       // Build the application
 	  if (isUnix()) {
@@ -28,6 +42,15 @@ node {
 	      sh "docker-compose -f docker-compose.yml up --force-recreate --abort-on-container-exit"
 	  } else {
 	      bat(/docker-compose -f docker-compose.yml up --force-recreate --abort-on-container-exit/)
+	  }
+	}
+	
+	stage('Integration Testing') {
+      // Run the integration tests
+	  if (isUnix()) {
+	      sh "echo There are no integration trests defined yet."
+	  } else {
+	      bat(/echo There are no integration trests defined yet./)
 	  }
 	}
 }

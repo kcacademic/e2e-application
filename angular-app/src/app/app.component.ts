@@ -14,6 +14,8 @@ import { JsonPipe } from '@angular/common';
 })
 export class AppComponent {
 
+  title = 'Tag Cloud Application';
+
   public words = Array<Word>();
 
   data: CloudData[] = []
