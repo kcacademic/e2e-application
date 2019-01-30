@@ -9,12 +9,11 @@ router.get('/', function (req, res) {
     });
 });
 
-// Import contact controller
+// Import word controller
 var wordController = require('./wordController');
 
-// Contact routes
-router.route('/words')
-    .get(wordController.index);
+// Word routes
+router.route('/words').get(wordController.index);
 	
 // Export API routes
 module.exports = router;

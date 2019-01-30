@@ -4,14 +4,14 @@ let express = require('express')
 // Initialize the app
 let app = express();
 
-// Import routes
-let apiRoutes = require("./api-routes")
-
 // Import Body parser
 let bodyParser = require('body-parser');
 
 // Import Mongoose
 let mongoose = require('mongoose');
+
+// Import routes
+let apiRoutes = require("./api-routes")
 
 // Setup server port
 var port = process.env.PORT || 8085;
@@ -40,7 +40,8 @@ mongoose.connect(mongodb);
 var db = mongoose.connection;
 
 // Send message for default URL
-app.get('/', (req, res) => res.send('Hello World with Express and Nodemon'));
+//app.get('/', (req, res) => res.send('Hello World with Express and Nodemon'));
+app.use('/',apiRoutes)
 
 // Use Api routes in the App
 app.use('/api', apiRoutes)
