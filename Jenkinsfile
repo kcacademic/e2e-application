@@ -2,7 +2,7 @@ node {
 	def scannerHome
 	
 	stage('Preparation') {
-      scannerHome = "C:\\Users\\kumchand0\\Apps\\sonar-scanner-3.3.0.1492-windows"
+      scannerHome = tool "SonarRunner"
 	}
 	
 	stage('SCM Checkout') {
