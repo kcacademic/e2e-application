@@ -53,8 +53,10 @@ node {
       // Build the application
 	  if (isUnix()) {
 	      sh "docker-compose -f docker-compose.yml up --force-recreate --abort-on-container-exit"
+		  sh "docker-compose -f docker-compose.yml down -v"
 	  } else {
 	      bat(/docker-compose -f docker-compose.yml up --force-recreate --abort-on-container-exit/)
+		  bat(/docker-compose -f docker-compose.yml down -v/)
 	  }
 	}
 	
