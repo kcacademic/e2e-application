@@ -4,15 +4,28 @@ node {
       git 'https://github.com/kcacademic/e2e-application.git'
 	}
 	
+	stage('Build Application') {
+      // Run the unit tests
+	  if (isUnix()) {
+		dir("angular-app") {
+	      sh "npm install"
+		}
+	  } else {
+		dir("angular-app") {
+	      bat(/npm install/)
+		}
+	  }
+	}
+	
 	stage('Unit Testing') {
       // Run the unit tests
 	  if (isUnix()) {
 		dir("angular-app") {
-	      sh "npm run ng -- test --single-run true"
+	      sh "npm test"
 		}
 	  } else {
 		dir("angular-app") {
-	      bat(/npm run ng -- test --single-run true/)
+	      bat(/npm test/)
 		}
 	  }
 	}
