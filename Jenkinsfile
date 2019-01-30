@@ -1,4 +1,10 @@
 node {
+	def scannerHome
+	
+	stage('Preparation') {
+      scannerHome = "C:\Users\kumchand0\Apps\sonar-scanner-3.3.0.1492-windows"
+	}
+	
 	stage('SCM Checkout') {
       git 'https://github.com/kcacademic/e2e-application.git'
 	}
@@ -42,9 +48,9 @@ node {
 	stage('Sonar Scanner') {
       withSonarQubeEnv('SonarQube') {
 		if (isUnix()) {
-	      sh "sonar-scanner -Dsonar.projectKey=e2e-application -Dsonar.sources=src"
+	      sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=e2e-application -Dsonar.sources=src"
 		} else {
-	      bat(/sonar-scanner -Dsonar.projectKey=e2e-application -Dsonar.sources=src/)
+	      bat(/${scannerHome}\bin\sonar-scanner -Dsonar.projectKey=e2e-application -Dsonar.sources=src/)
 		}
 	  }
 	}
