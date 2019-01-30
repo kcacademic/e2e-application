@@ -50,7 +50,7 @@ node {
 	  	if (isUnix()) {
 			sh "${scannerHome}/bin/sonar-scanner"
 		  } else {
-	        bat(/"${scannerHome}"/)
+	        bat(/"${scannerHome}\bin\sonar-scanner"/)
 		}
 	  }
 	}
