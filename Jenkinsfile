@@ -8,8 +8,14 @@ node {
 		dir("angular-app") {
 	      sh "npm install"
 		}
+		dir("node-mongo-app") {
+	      sh "npm install"
+		}
 	  } else {
 		dir("angular-app") {
+	      bat(/npm install/)
+		}
+		dir("node-mongo-app") {
 	      bat(/npm install/)
 		}
 	  }
@@ -20,8 +26,14 @@ node {
 		dir("angular-app") {
 	      sh "npm test"
 		}
+		dir("node-mongo-app") {
+	      sh "npm test"
+		}
 	  } else {
 		dir("angular-app") {
+	      bat(/npm test/)
+		}
+		dir("node-mongo-app") {
 	      bat(/npm test/)
 		}
 	  }
