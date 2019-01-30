@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "mocha",
-	  "start": "node src/index"
+    "start": "node src/index"
   },
   "author": "kchandrakant@gmail.com",
   "license": "MIT",
@@ -13,5 +13,8 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "mongoose": "^5.4.4"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
   }
 }
