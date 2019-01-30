@@ -48,26 +48,10 @@ node {
 	stage('Sonar Scanner') {
       withSonarQubeEnv('SonarQube') {
 	  	if (isUnix()) {
-			sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=e2e-application -Dsonar.sources=."
+			sh "${scannerHome}/bin/sonar-scanner"
 		  } else {
-	        bat(/${scannerHome}\bin\sonar-scanner -Dsonar.projectKey=e2e-application -Dsonar.sources=./)
+	        bat(/${scannerHome}\bin\sonar-scanner/)
 		}
-		/*
-		dir("angular-app") {
-		  if (isUnix()) {
-			sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=e2e-application -Dsonar.sources=src"
-		  } else {
-	        bat(/${scannerHome}\bin\sonar-scanner -Dsonar.projectKey=e2e-application -Dsonar.sources=src/)
-		  }
-		}
-		dir("node-mongo-app") {
-		  if (isUnix()) {
-			sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=e2e-application -Dsonar.sources=src"
-		  } else {
-			bat(/${scannerHome}\bin\sonar-scanner -Dsonar.projectKey=e2e-application -Dsonar.sources=src/)
-		  }
-		}
-		*/
 	  }
 	}
 	
