@@ -39,6 +39,16 @@ node {
 	  }
 	}
 	
+	stage('Sonar Scanner') {
+      withSonarQubeEnv('SonarQube') {
+		if (isUnix()) {
+	      sh "sonar-scanner -Dsonar.projectKey=e2e-application -Dsonar.sources=src"
+		} else {
+	      bat(/sonar-scanner -Dsonar.projectKey=e2e-application -Dsonar.sources=src/)
+		}
+	  }
+	}
+	
 	stage('Docker Build') {
 	  if (isUnix()) {
 		dir("angular-app") {
