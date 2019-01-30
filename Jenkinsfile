@@ -5,7 +5,7 @@ node {
 	}
 	
 	stage('Build Application') {
-      // Run the unit tests
+      // Build the application
 	  if (isUnix()) {
 		dir("angular-app") {
 	      sh "npm install"
