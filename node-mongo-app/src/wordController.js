@@ -1,5 +1,5 @@
 // Import contact model
-wordModel = require('./wordModel');
+var wordModel = require('./wordModel');
 
 // Handle index actions
 exports.index = function (req, res) {

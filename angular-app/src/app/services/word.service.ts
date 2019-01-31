@@ -21,7 +21,7 @@ export class WordService {
   get(): Observable<any> {  
 	  console.log(this.http.get(this.endpoint + `/api/words`));
     return this.http.get(this.endpoint + `/api/words`).pipe(
-      map(this.extractData));;
+      map(this.extractData));
   }
 
 }
