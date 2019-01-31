@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { TagCloudModule } from 'angular-tag-cloud-module';
 import { HttpClientModule } from '@angular/common/http';
 import { WordService } from './services/word.service';
+import { WordServiceMock } from './mocks/word.service.mock';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -16,7 +17,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent   
       ],
-      providers: [WordService],
+      providers: [{provide: WordService, useClass: WordServiceMock}],
     }).compileComponents();
   }));
 
