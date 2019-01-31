@@ -4,7 +4,7 @@
   "description": "This is node app which fetches data from MongoDB and expose RESTfully.",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "nyc --reporter=lcov mocha",
     "start": "node src/index"
   },
   "author": "kchandrakant@gmail.com",
