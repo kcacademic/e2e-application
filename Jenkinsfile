@@ -54,7 +54,7 @@ node {
 		}
 	  }
 	}
-	
+	/*
 	stage('Docker Build') {
 	  if (isUnix()) {
 		dir("angular-app") {
@@ -72,7 +72,7 @@ node {
 		}
 	  }
 	}
-	/*
+	
 	stage('Docker Run') {
       // Build the application
 	  if (isUnix()) {
