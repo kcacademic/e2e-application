@@ -7,22 +7,22 @@ services:
     command: mongod --bind_ip 0.0.0.0
     volumes:
       - data:/data/db
-
+      
   api:
     environment:
      - MONGODB=mongodb://host.docker.internal/vocabulary
     #build: ./node-mongo-app
-    image: node-mongo:1.0
+    image: node-mongo-app:B${BUILD_NUMBER}
     ports:
      - 8085:8085
     depends_on:
      - db
-     
+
   ui:
     #build: ./angular-app
-    image: angular-ngrx:1.0
+    image: angular-app:B${BUILD_NUMBER}
     ports:
      - 4200:4200
-     
+
 volumes:
   data:

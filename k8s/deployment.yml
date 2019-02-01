@@ -1,0 +1,37 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata: 
+  name: e2e-deployment
+spec: 
+  replicas: 1
+  template: 
+    metadata: 
+      labels: 
+        app: e2e-app
+    spec: 
+      containers:
+        - name: mongo-db
+          image: mongo
+          command: ["mongod"]
+          args: ["--bind_ip_all"]
+          volumeMounts:
+            - name: mongodata
+              mountPath: "/data/db"
+          ports:
+            -
+              containerPort: 27017
+        - name: angular-app
+          image: kchandrakant/myrepo:angular-app
+          ports: 
+            - 
+              containerPort: 4200
+        - name: node-mongo-app
+          image: kchandrakant/myrepo:node-mongo-app
+          ports: 
+            - 
+              containerPort: 8085
+      volumes:
+        - name: mongodata
+          hostPath:
+            path: /data
+            type: Directory
