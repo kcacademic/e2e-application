@@ -8,7 +8,7 @@ const WordList = (props) => (
     <div>
         <MyCloud words={props.words}/>
     </div>
-    <div>
+    <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
         <ul>
             {props.words.map(word => {
                 return (

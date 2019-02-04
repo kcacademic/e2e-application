@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import AppRouter from './routers/AppRouter';
 import getAppStore from './store/store';
 import { getWords } from './actions/wordActions';
-import './styles/styles.scss';
 
 import { Provider } from 'react-redux';
 
