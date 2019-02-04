@@ -12,7 +12,7 @@ services:
     environment:
      - MONGODB=mongodb://host.docker.internal/vocabulary
     #build: ./node-mongo-app
-    image: node-mongo:1.0
+    image: kchandrakant/myrepo:node-mongo-app
     ports:
      - 8085:8085
     depends_on:
@@ -20,7 +20,7 @@ services:
      
   ui:
     #build: ./angular-app
-    image: angular-ngrx:1.0
+    image: kchandrakant/myrepo:angular-app
     ports:
      - 4200:4200
      

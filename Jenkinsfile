@@ -9,7 +9,7 @@ node {
       git 'https://github.com/kcacademic/e2e-application.git'
 	}
 	
-	stage('Application Dependency Installation') {
+	stage('Dependency Installation') {
 	  if (isUnix()) {
 		dir("angular-app") {
 	      sh "npm install"
@@ -54,6 +54,25 @@ node {
 		}
 	  }
 	}
+	
+	stage('Application Build') {
+	  if (isUnix()) {
+		dir("angular-app") {
+	      sh "npm run build"
+		}
+		dir("node-mongo-app") {
+		  sh "npm run build"
+		}
+	  } else {
+		dir("angular-app") {
+	      bat(/npm run build/)
+		}
+		dir("node-mongo-app") {
+		  bat(/npm run build/)
+		}
+	  }
+	}
+	
 	/*
 	stage('Docker Build') {
 	  if (isUnix()) {

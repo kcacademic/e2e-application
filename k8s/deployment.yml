@@ -21,12 +21,12 @@ spec:
             -
               containerPort: 27017
         - name: angular-app
-          image: kchandrakant/myrepo:angular-app
+          image: kchandrakant/frontend:angular-app
           ports: 
             - 
-              containerPort: 4200
+              containerPort: 80
         - name: node-mongo-app
-          image: kchandrakant/myrepo:node-mongo-app
+          image: kchandrakant/backend:node-mongo-app
           ports: 
             - 
               containerPort: 8085
