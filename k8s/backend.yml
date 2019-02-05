@@ -1,13 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+   name: backend-service
+spec:
+   selector:
+     app: backend-app
+   type: NodePort
+   ports:
+   - name: api
+     protocol: TCP
+     port: 8085
+   - name: db
+     protocol: TCP
+     port: 27017   
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata: 
-  name: e2e-deployment
+  name: backend-deployment
 spec: 
   replicas: 1
   template: 
     metadata: 
       labels: 
-        app: e2e-app
+        app: backend-app
     spec: 
       containers:
         - name: mongo-db
@@ -20,11 +36,6 @@ spec:
           ports:
             -
               containerPort: 27017
-        - name: angular-app
-          image: kchandrakant/frontend:angular-app
-          ports: 
-            - 
-              containerPort: 80
         - name: node-mongo-app
           image: kchandrakant/backend:node-mongo-app
           ports: 
