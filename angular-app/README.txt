@@ -10,4 +10,4 @@ docker build -t angular-ngrx:1.0 .
 
 docker stop angular_ngrx
 docker rm angular_ngrx
-docker run --name=angular_ngrx -p 4200:4200 angular-ngrx:1.0
+docker run --name=angular_ngrx -p 80:80 angular-ngrx:1.0
