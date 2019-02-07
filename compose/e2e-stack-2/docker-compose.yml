@@ -15,6 +15,7 @@ services:
      - 8085:8085
     depends_on:
      - db
+    command: ["db", "9042", "java -Dspring.profiles.active=prod -jar app.jar"]
      
   ui:
     #build: ../react-redux-app

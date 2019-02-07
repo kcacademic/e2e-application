@@ -4,4 +4,4 @@ docker pull cassandra
 
 Run Image
 =========
-docker run -d cassandra
+docker run -p 9042:9042 --rm --name=cassandra cassandra
