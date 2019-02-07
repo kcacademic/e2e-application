@@ -62,7 +62,7 @@ spec:
       volumes:
         - name: mongodata
           hostPath:
-            path: /data
+            path: /data/mongo
             type: Directory
       {{- with .Values.nodeSelector }}
       nodeSelector:

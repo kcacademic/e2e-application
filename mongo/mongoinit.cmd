@@ -1,0 +1,1 @@
+mongoimport --host localhost --db vocabulary --collection words --type json --file init.json --jsonArray

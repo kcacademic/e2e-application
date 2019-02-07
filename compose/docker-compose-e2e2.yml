@@ -1,0 +1,27 @@
+version: '3'
+services:
+  db:
+    image: cassandra
+    ports:
+      - 9042:9042
+    volumes:
+      - data-cassandra:/var/lib/cassandra
+
+  api:
+    #build: ../spring-cassandra-app
+    #image: kchandrakant/backend:spring-cassandra-app
+    image: spring-cassandra:1.0
+    ports:
+     - 8085:8085
+    depends_on:
+     - db
+     
+  ui:
+    #build: ../react-redux-app
+    #image: kchandrakant/frontend:react-redux-app
+    image: react-redux:1.0
+    ports:
+     - 80:80
+     
+volumes:
+  data-cassandra:

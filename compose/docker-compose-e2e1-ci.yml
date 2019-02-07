@@ -6,23 +6,23 @@ services:
       - 27017:27017
     command: mongod --bind_ip 0.0.0.0
     volumes:
-      - data:/data/db
-
+      - data-mongo:/data/db
+      
   api:
     environment:
      - MONGODB=mongodb://host.docker.internal/vocabulary
-    #build: ./node-mongo-app
-    image: kchandrakant/myrepo:node-mongo-app
+    #build: ../node-mongo-app
+    image: node-mongo-app:B${BUILD_NUMBER}
     ports:
      - 8085:8085
     depends_on:
      - db
-     
+
   ui:
-    #build: ./angular-app
-    image: kchandrakant/myrepo:angular-app
+    #build: ../angular-app
+    image: angular-app:B${BUILD_NUMBER}
     ports:
      - 4200:4200
-     
+
 volumes:
-  data:
+  data-mongo:

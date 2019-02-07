@@ -1,12 +1,4 @@
 /.metadata/
 /.recommenders/
-/kafka-producer-app/
 /RemoteSystemsTempFiles/
 /Servers/
-/spark-streaming-app/
-/spark-streaming-scala-app/
-/spring-cassandra-app/
-/mongo/
-
-frontend-apps.code-workspace
-Requirements.txt

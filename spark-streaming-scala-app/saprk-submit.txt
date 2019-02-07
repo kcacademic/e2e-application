@@ -1,0 +1,1 @@
+Apps\spark-2.3.1-bin-hadoop2.7\bin\spark-submit.cmd --class com.sapient.learning.WordDataStream --master local Apps\e2e-application\spark-streaming-scala-app\target\scala-2.11\spark-streaming-scala-assembly-1.0.jar

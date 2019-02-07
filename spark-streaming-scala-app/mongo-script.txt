@@ -1,0 +1,3 @@
+use vocabulary
+db.createCollection("words")
+db.words.createIndex( { word: 1 }, { unique: true } )
