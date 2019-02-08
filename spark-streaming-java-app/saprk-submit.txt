@@ -1,1 +1,0 @@
-Apps\spark-2.3.1-bin-hadoop2.7\bin\spark-submit.cmd --class com.sapient.learning.WordDataStream --master local Apps\e2e-application\spark-streaming-app\target\spark-streaming-app-0.0.1-SNAPSHOT-jar-with-dependencies.jar

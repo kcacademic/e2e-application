@@ -48,6 +48,8 @@ import scala.Tuple2;
 public class WordDataStream {
 	
 	public static JavaSparkContext javaSparkContext;
+	
+	public static MyProperties props = new MyProperties();
 
 	public static void main(String[] args) throws InterruptedException {
 		
@@ -55,20 +57,24 @@ public class WordDataStream {
 		Logger.getLogger("akka").setLevel(Level.OFF);
 
 		Map<String, Object> kafkaParams = new HashMap<>();
-		kafkaParams.put("bootstrap.servers", "localhost:9092");
+		kafkaParams.put("bootstrap.servers", props.getValue("kafka.server"));
 		kafkaParams.put("key.deserializer", StringDeserializer.class);
 		kafkaParams.put("value.deserializer", StringDeserializer.class);
 		kafkaParams.put("group.id", "use_a_separate_group_id_for_each_stream");
 		kafkaParams.put("auto.offset.reset", "latest");
 		kafkaParams.put("enable.auto.commit", false);
 
-		Collection<String> topics = Arrays.asList("twitter");
-
+		Collection<String> topics = Arrays.asList(props.getValue("kafka.topic"));
+		
 		SparkConf sparkConf = new SparkConf();
 		sparkConf.setMaster("local[2]");
 		sparkConf.setAppName("WordCountingAppWithCheckpoint");
-		sparkConf.setIfMissing("spark.cassandra.connection.host", "127.0.0.1");
-		sparkConf.setIfMissing("spark.mongodb.output.uri", "mongodb://localhost:27017/vocabulary.words");
+		sparkConf.setIfMissing("spark.cassandra.connection.host", props.getValue("cassandra.server"));
+		sparkConf.setIfMissing("spark.mongodb.output.uri", 
+				"mongodb://"
+						+ props.getValue("mongo.server")
+						+ "/" + props.getValue("mongo.database")
+						+ "." + props.getValue("mongo.collection") );
 
 		SparkSession sparkSession = SparkSession.builder().config(sparkConf).getOrCreate();
 		
@@ -79,10 +85,6 @@ public class WordDataStream {
 		javaSparkContext = JavaSparkContext.fromSparkContext(sparkContext);
 		
 		JavaStreamingContext streamingContext = new JavaStreamingContext(javaSparkContext, Durations.seconds(1));
-		
-		//JavaStreamingContext streamingContext = new JavaStreamingContext(sparkConf, Durations.seconds(1));
-		
-		//javaSparkContext = streamingContext.sparkContext();
 		
 		streamingContext.checkpoint("./.checkpoint");
 
@@ -133,7 +135,10 @@ public class WordDataStream {
 				             List<Word> listWord = Arrays.asList(new Word(tuple._1, tuple._1, tuple._2));
 				             JavaRDD<Word> rddWord = javaSparkContext.parallelize(listWord);
 				             
-				             javaFunctions(rddWord).writerBuilder("vocabulary", "words", mapToRow(Word.class)).saveToCassandra();
+				             javaFunctions(rddWord).writerBuilder(
+				            		 props.getValue("cassandra.keyspace"), 
+				            		 props.getValue("cassandra.table"), 
+				            		 mapToRow(Word.class)).saveToCassandra();
 				             
 				             MongoSpark.save(sparkSession.createDataFrame(rddWord, Word.class).write().mode("append"));
 				        }
@@ -144,6 +149,7 @@ public class WordDataStream {
 		
 		streamingContext.start();
 		streamingContext.awaitTermination();
+		
 	}
 	
 	public static String[] cleanse(String str) {

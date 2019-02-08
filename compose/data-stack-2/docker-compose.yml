@@ -22,7 +22,7 @@ services:
       - data-mongo:/data/db
   
   spark-app:
-    image: spark-streaming-java:1.0
+    image: spark-streaming-scala:1.0
     depends_on:
      - kafka
      - cassandra
