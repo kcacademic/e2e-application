@@ -13,6 +13,7 @@ import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +31,11 @@ import com.twitter.hbc.httpclient.auth.OAuth1;
 @Component
 public class TwitterKafkaProducer implements CommandLineRunner{
 
-	private final String topic = "twitter";
+	@Value("${kafka.topic}")
+	private String topic;
+	
+	@Value("${kafka.brokerList}")
+	private String brokerList;
 
 	private Producer<String, String> producer;
 
@@ -46,7 +51,7 @@ public class TwitterKafkaProducer implements CommandLineRunner{
 
 	private void initKafka() {
 		Properties kafkaProps = new Properties();
-		kafkaProps.put("bootstrap.servers", "host.docker.internal:9092");
+		kafkaProps.put("bootstrap.servers", brokerList);
 		kafkaProps.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 		kafkaProps.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 		kafkaProps.put("acks", "1");

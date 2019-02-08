@@ -1,10 +1,16 @@
 version: '3'
 services:
-  db:
+  store:
     image: spotify/kafka
-    environment:
-     - ADVERTISED_HOST=0.0.0.0
-     - ADVERTISED_PORT=9092
+    #environment:
+    # - ADVERTISED_HOST=0.0.0.0
+    # - ADVERTISED_PORT=9092
     ports:
       - 2181:2181
       - 9092:9092
+      
+  producer:
+    image: kafka-producer:1.0
+    depends_on:
+     - store
+    command: ["-Dspring.profiles.active=prod", "-jar", "app.jar"]
