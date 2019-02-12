@@ -16,7 +16,7 @@ import com.sapient.learning.repo.WordRepository;
 @CrossOrigin(origins = "http://localhost")
 @RestController
 @RequestMapping("/api")
-public class TagController {
+public class WordController {
 
 	@Autowired
 	WordRepository wordRepository;
