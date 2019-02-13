@@ -1,0 +1,28 @@
+version: '3'
+services:
+  db:
+    image: cassandra
+    ports:
+      - 9042:9042
+    volumes:
+      - data-cassandra:/var/lib/cassandra
+
+  api:
+    #build: ../spring-cassandra-app
+    #image: kchandrakant/backend:spring-cassandra-app
+    image: spring-cassandra:B${BUILD_NUMBER}
+    ports:
+     - 8085:8085
+    depends_on:
+     - db
+    command: ["db", "9042", "java -Dspring.profiles.active=prod -jar app.jar"]
+     
+  ui:
+    #build: ../react-redux-app
+    #image: kchandrakant/frontend:react-redux-app
+    image: react-redux:B${BUILD_NUMBER}
+    ports:
+     - 80:80
+     
+volumes:
+  data-cassandra:

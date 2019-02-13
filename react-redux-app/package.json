@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "live-server public",
     "build": "webpack --mode=development",
     "start": "webpack-dev-server --mode=development"
+	"test": "echo There is no tests defined yet."
   },
   "dependencies": {
     "axios": "0.18.0",
