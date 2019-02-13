@@ -1,16 +1,19 @@
 import { AppPage } from './app.po';
 import { browser, logging } from 'protractor';
 
-describe('workspace-project App', () => {
+describe('Tag Cloud Application', () => {
   let page: AppPage;
 
   beforeEach(() => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should have correct page title', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to my-angular-app!');
+    page.getPageTitle()
+      .then((title: string) => {
+        expect(title).toEqual('MyAngularApp');
+      });
   });
 
   afterEach(async () => {
