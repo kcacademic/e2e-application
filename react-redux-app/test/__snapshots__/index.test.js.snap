@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard component with TagCloud rendered. 1`] = `
+<div
+  className="container"
+>
+  <header
+    style={
+      Object {
+        "flex": 1,
+        "textAlign": "center",
+      }
+    }
+  >
+    <h2>
+      Sample Tag Cloud
+    </h2>
+    <h4>
+      Twitter Word Frequency Analysis
+    </h4>
+  </header>
+  <div
+    className="container__list"
+  >
+    <div>
+      <div>
+        <div
+          className="app-outer"
+        >
+          <div
+            className="app-inner"
+          >
+            <div
+              className="tag-cloud"
+              style={
+                Object {
+                  "color": [Function],
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "justifyContent": "center",
+          }
+        }
+      >
+        <ul />
+      </div>
+    </div>
+  </div>
+</div>
+`;

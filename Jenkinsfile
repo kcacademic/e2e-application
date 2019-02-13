@@ -68,7 +68,8 @@ node {
 	      //bat(/npm run start/)
 		}
 		dir("spring-cassandra-app") {
-	      bat(/mvn spring-boot:start/)
+		  bat(/echo "This is not needed yet."/)
+	      //bat(/mvn spring-boot:start/)
 		}
 	}
 	
@@ -98,7 +99,8 @@ node {
 	      bat(/echo "There are no graceful shutdown for node apps."/)
 		}
 	    dir("spring-cassandra-app") {
-	      bat(/mvn spring-boot:stop/)
+		  bat(/echo "This is not needed yet."/)
+	      //bat(/mvn spring-boot:stop/)
 		}
 	}
 	
