@@ -10,106 +10,78 @@ node {
 	}
 	
 	stage('Dependency Installation') {
-	  if (isUnix()) {
-		dir("angular-app") {
-	      sh "npm install"
-		}
-		dir("node-mongo-app") {
-	      sh "npm install"
-		}
-	  } else {
 		dir("angular-app") {
 	      bat(/npm install/)
 		}
 		dir("node-mongo-app") {
 	      bat(/npm install/)
 		}
-	  }
-	}
-	
-	stage('Unit Testing') {
-	  if (isUnix()) {
-		dir("angular-app") {
-	      sh "npm test"
+		dir("spring-cassandra-app") {
+	      bat(/mvn install/)
 		}
-		dir("node-mongo-app") {
-	      sh "npm test"
-		}
-	  } else {
-		dir("angular-app") {
-	      bat(/npm test/)
-		}
-		dir("node-mongo-app") {
-	      bat(/npm test/)
-		}
-	  }
-	}
-	
-	stage('Sonar Scanner') {
-      withSonarQubeEnv('SonarQube') {
-	  	if (isUnix()) {
-			sh "${scannerHome}/bin/sonar-scanner"
-		  } else {
-	        bat(/"${scannerHome}\bin\sonar-scanner"/)
-		}
-	  }
 	}
 	
 	stage('Application Build') {
-	  if (isUnix()) {
-		dir("angular-app") {
-	      sh "npm run build"
-		}
-		dir("node-mongo-app") {
-		  sh "npm run build"
-		}
-	  } else {
 		dir("angular-app") {
 	      bat(/npm run build/)
 		}
 		dir("node-mongo-app") {
 		  bat(/npm run build/)
 		}
-	  }
+		dir("spring-cassandra-app") {
+		  bat(/mvn clean compile/)
+		}
+	}
+	
+	stage('Unit Testing') {
+		dir("angular-app") {
+	      bat(/npm test/)
+		}
+		dir("node-mongo-app") {
+	      bat(/npm test/)
+		}
+		dir("spring-cassandra-app") {
+	      bat(/mvn test/)
+		}
+	}
+	
+	stage('Application Run') {
+		dir("spring-cassandra-app") {
+	      bat(/mvn spring-boot:start/)
+		}
+	}
+	
+	stage('Integration Testing') {
+	    dir("spring-cassandra-app") {
+	      bat(/mvn test -Pintegration-tests/)
+		}
+	}
+	
+	stage('Application Shutdown') {
+	    dir("spring-cassandra-app") {
+	      bat(/mvn spring-boot:stop/)
+		}
+	}
+	
+	stage('Sonar Scanner') {
+		withSonarQubeEnv('SonarQube') {
+	      bat(/"${scannerHome}\bin\sonar-scanner"/)
+		}
 	}
 	
 	/*
 	stage('Docker Build') {
-	  if (isUnix()) {
-		dir("angular-app") {
-	      sh "docker build -t angular-app:B${BUILD_NUMBER} -f Dockerfile ."
-		}
-		dir("node-mongo-app") {
-		  sh "docker build -t node-mongo-app:B${BUILD_NUMBER} -f Dockerfile ."
-		}
-	  } else {
 		dir("angular-app") {
 	      bat(/docker build -t angular-app:B${BUILD_NUMBER} -f Dockerfile ./)
 		}
 		dir("node-mongo-app") {
 		  bat(/docker build -t node-mongo-app:B${BUILD_NUMBER} -f Dockerfile ./)
 		}
-	  }
 	}
 	
 	stage('Docker Run') {
-      // Build the application
-	  if (isUnix()) {
-	      sh "docker-compose -f docker-compose.yml up --force-recreate --abort-on-container-exit"
-		  sh "docker-compose -f docker-compose.yml down -v"
-	  } else {
-	      bat(/docker-compose -f docker-compose.yml up --force-recreate --abort-on-container-exit/)
-		  bat(/docker-compose -f docker-compose.yml down -v/)
-	  }
-	}
-	
-	stage('Integration Testing') {
-      // Run the integration tests
-	  if (isUnix()) {
-	      sh "echo There are no integration trests defined yet."
-	  } else {
-	      bat(/echo There are no integration trests defined yet./)
-	  }
+	    bat(/docker-compose -f docker-compose.yml up --force-recreate --abort-on-container-exit/)
+		bat(/docker-compose -f docker-compose.yml down -v/)
 	}
 	*/
 }
