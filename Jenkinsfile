@@ -56,13 +56,16 @@ node {
 	
 	stage('Application Run') {
 		dir("angular-app") {
-	      bat(/npm run start/)
+	      bat(/echo "This is not needed yet."/)
+	      //bat(/npm run start/)
 		}
 		dir("node-mongo-app") {
-	      bat(/npm run start/)
+		  bat(/echo "This is not needed yet."/)
+	      //bat(/npm run start/)
 		}
 		dir("react-redux-app") {
-	      bat(/npm run start/)
+		  bat(/echo "This is not needed yet."/)
+	      //bat(/npm run start/)
 		}
 		dir("spring-cassandra-app") {
 	      bat(/mvn spring-boot:start/)
