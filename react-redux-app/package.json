@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "webpack --mode=development",
-    "start": "webpack-dev-server --mode=development"
+    "start": "webpack-dev-server --mode=development",
 	"test": "echo There is no tests defined yet."
   },
   "dependencies": {
