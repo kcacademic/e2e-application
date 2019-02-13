@@ -25,7 +25,7 @@ import com.sapient.learning.repo.WordRepository;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(WordController.class)
-public class WordControllerTest {
+public class WordControllerUnitTest {
 
 	@Autowired
 	private MockMvc mvc;
