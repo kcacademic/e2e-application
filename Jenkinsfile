@@ -35,7 +35,7 @@ node {
 	      bat(/npm run build/)
 		}
 		dir("spring-cassandra-app") {
-		  bat(/mvn clean compile/)
+		  bat(/mvn clean package/)
 		}
 	}
 	
