@@ -3,6 +3,8 @@ node {
 	
 	stage('Preparation') {
       scannerHome = tool "SonarRunner"
+	  mavenHome = tool "M3"
+	  gradleHome = tool "Gradle"
 	}
 	
 	stage('SCM Checkout') {
@@ -38,10 +40,10 @@ node {
 	      bat(/npm run build/)
 		}
 		dir("spring-cassandra-app") {
-		  bat(/mvn clean package/)
+		  bat(/${mavenHome}\bin\mvn clean package/)
 		}
 		dir("kotlin-cassandra-app") {
-	      bat(/gradle clean build/)
+	      bat(/${gradleHome}\bin\gradle clean build/)
 		}
 	}
 	
@@ -56,71 +58,10 @@ node {
 	      bat(/npm test/)
 		}
 		dir("spring-cassandra-app") {
-	      bat(/mvn test/)
+	      bat(/${mavenHome}\bin\mvn test/)
 		}
 		dir("kotlin-cassandra-app") {
-	      bat(/gradle test/)
-		}
-	}
-	
-	stage('Application Run') {
-		dir("angular-app") {
-	      bat(/echo "This is not needed yet."/)
-	      //bat(/npm run start/)
-		}
-		dir("node-mongo-app") {
-		  bat(/echo "This is not needed yet."/)
-	      //bat(/npm run start/)
-		}
-		dir("react-redux-app") {
-		  bat(/echo "This is not needed yet."/)
-	      //bat(/npm run start/)
-		}
-		dir("spring-cassandra-app") {
-		  bat(/echo "This is not needed yet."/)
-	      //bat(/mvn spring-boot:start/)
-		}
-		dir("kotlin-cassandra-app") {
-		  bat(/echo "This is not needed yet."/)
-	      //bat(/gradle bootRun/)
-		}
-	}
-	
-	stage('Integration Testing') {
-		dir("angular-app") {
-	      bat(/echo "There are no integration tests defined yet."/)
-		}
-		dir("node-mongo-app") {
-	      bat(/echo "There are no integration tests defined yet."/)
-		}
-		dir("react-redux-app") {
-	      bat(/echo "There are no integration tests defined yet."/)
-		}
-	    dir("spring-cassandra-app") {
-	      bat(/mvn test -Pintegration-tests/)
-		}
-		dir("kotlin-cassandra-app") {
-	      bat(/gradle test/)
-		}
-	}
-	
-	stage('Application Shutdown') {
-		dir("angular-app") {
-	      bat(/echo "There are no graceful shutdown for node apps."/)
-		}
-		dir("node-mongo-app") {
-	      bat(/echo "There are no graceful shutdown for node apps."/)
-		}
-		dir("react-redux-app") {
-	      bat(/echo "There are no graceful shutdown for node apps."/)
-		}
-	    dir("spring-cassandra-app") {
-		  bat(/echo "This is not needed yet."/)
-	      //bat(/mvn spring-boot:stop/)
-		}
-		dir("kotlin-cassandra-app") {
-		  bat(/echo "This is not needed yet."/)
-	      //bat(/gradle xxx/)
+	      bat(/${gradleHome}\bin\gradle test/)
 		}
 	}
 	
@@ -141,9 +82,6 @@ node {
 		dir("react-redux-app") {
 		  bat(/docker build -t react-redux-app:B${BUILD_NUMBER} -f Dockerfile ./)
 		}
-		dir("spring-cassandra-app") {
-		  bat(/docker build -t spring-cassandra-app:B${BUILD_NUMBER} -f Dockerfile ./)
-		}
 		dir("kotlin-cassandra-app") {
 		  bat(/docker build -t kotlin-cassandra-app:B${BUILD_NUMBER} -f Dockerfile ./)
 		}
@@ -159,13 +97,56 @@ node {
 			bat(/docker-compose -f docker-compose-ci.yml up --force-recreate --abort-on-container-exit/)
 		}
 	}
+	*/
 	
+	/*
+	stage('Integration Testing') {
+		dir("angular-app") {
+	      bat(/echo "There are no integration tests defined yet."/)
+		}
+		dir("node-mongo-app") {
+	      bat(/echo "There are no integration tests defined yet."/)
+		}
+		dir("react-redux-app") {
+	      bat(/echo "There are no integration tests defined yet."/)
+		}
+	    dir("spring-cassandra-app") {
+	      bat(/${mavenHome}\bin\mvn test -Pintegration-tests/)
+		}
+		dir("kotlin-cassandra-app") {
+	      bat(/${gradleHome}\bin\gradle test/)
+		}
+	}
+	*/
+	
+	/*
 	stage('Docker Compose Shutdown') {
 		dir("compose/e2e-stack-1") {
 			bat(/docker-compose -f docker-compose-ci.yml down -v/)
 		}
 		dir("compose/e2e-stack-2") {
 			bat(/docker-compose -f docker-compose-ci.yml down -v/)
+		}
+	}
+	*/
+	
+	/*
+	stage('Docker Publish') {
+		dir("angular-app") {
+	      bat(/docker tag angular-app:B${BUILD_NUMBER} kchandrakant/frontend:angular-app/)
+		  bat(/docker push kchandrakant/frontend:angular-app/)
+		}
+		dir("node-mongo-app") {
+		  bat(/docker tag node-mongo-app:B${BUILD_NUMBER} kchandrakant/backend:node-mongo-app/)
+		  bat(/docker push kchandrakant/frontend:angular-app/)
+		}
+		dir("react-redux-app") {
+		  bat(/docker tag react-redux-app:B${BUILD_NUMBER} kchandrakant/frontend:react-redux-app/)
+		  bat(/docker push kchandrakant/frontend:angular-app/)
+		}
+		dir("kotlin-cassandra-app") {
+		  bat(/docker tag kotlin-cassandra-app:B${BUILD_NUMBER} kchandrakant/backend:kotlin-cassandra-app/)
+		  bat(/docker push kchandrakant/frontend:angular-app/)
 		}
 	}
 	*/
