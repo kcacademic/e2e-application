@@ -22,6 +22,9 @@ node {
 		dir("spring-cassandra-app") {
 	      bat(/echo "There is nothing to do here."/)
 		}
+		dir("kotlin-cassandra-app") {
+	      bat(/echo "There is nothing to do here."/)
+		}
 	}
 	
 	stage('Application Build') {
@@ -37,6 +40,9 @@ node {
 		dir("spring-cassandra-app") {
 		  bat(/mvn clean package/)
 		}
+		dir("kotlin-cassandra-app") {
+	      bat(/gradle clean build/)
+		}
 	}
 	
 	stage('Unit Testing') {
@@ -51,6 +57,9 @@ node {
 		}
 		dir("spring-cassandra-app") {
 	      bat(/mvn test/)
+		}
+		dir("kotlin-cassandra-app") {
+	      bat(/gradle test/)
 		}
 	}
 	
@@ -71,6 +80,10 @@ node {
 		  bat(/echo "This is not needed yet."/)
 	      //bat(/mvn spring-boot:start/)
 		}
+		dir("kotlin-cassandra-app") {
+		  bat(/echo "This is not needed yet."/)
+	      //bat(/gradle bootRun/)
+		}
 	}
 	
 	stage('Integration Testing') {
@@ -85,6 +98,9 @@ node {
 		}
 	    dir("spring-cassandra-app") {
 	      bat(/mvn test -Pintegration-tests/)
+		}
+		dir("kotlin-cassandra-app") {
+	      bat(/gradle test/)
 		}
 	}
 	
@@ -101,6 +117,10 @@ node {
 	    dir("spring-cassandra-app") {
 		  bat(/echo "This is not needed yet."/)
 	      //bat(/mvn spring-boot:stop/)
+		}
+		dir("kotlin-cassandra-app") {
+		  bat(/echo "This is not needed yet."/)
+	      //bat(/gradle xxx/)
 		}
 	}
 	
@@ -123,6 +143,9 @@ node {
 		}
 		dir("spring-cassandra-app") {
 		  bat(/docker build -t spring-cassandra-app:B${BUILD_NUMBER} -f Dockerfile ./)
+		}
+		dir("kotlin-cassandra-app") {
+		  bat(/docker build -t kotlin-cassandra-app:B${BUILD_NUMBER} -f Dockerfile ./)
 		}
 	}
 	*/
