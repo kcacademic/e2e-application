@@ -5,11 +5,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.sapient</groupId>
-	<artifactId>spring-cassandra-app</artifactId>
+	<artifactId>java-cassandra-app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>spring-cassandra-app</name>
+	<name>java-cassandra-app</name>
 	<description>Demo project for Spring Boot - Cassandra</description>
 
 	<parent>

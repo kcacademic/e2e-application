@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.sapient.learning</groupId>
-	<artifactId>kafka-producer-app</artifactId>
+	<artifactId>java-kafka-app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>kafka-producer-app</name>
+	<name>java-kafka-app</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
