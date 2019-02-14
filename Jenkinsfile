@@ -21,10 +21,10 @@ node {
 		dir("react-redux-app") {
 	      bat(/npm install/)
 		}
-		dir("spring-cassandra-app") {
+		dir("java-cassandra-app") {
 	      bat(/echo "There is nothing to do here."/)
 		}
-		dir("kotlin-cassandra-app") {
+		dir("kotlin-kafka-app") {
 	      bat(/echo "There is nothing to do here."/)
 		}
 	}
@@ -39,10 +39,10 @@ node {
 		dir("react-redux-app") {
 	      bat(/npm run build/)
 		}
-		dir("spring-cassandra-app") {
+		dir("java-cassandra-app") {
 		  bat(/${mavenHome}\bin\mvn clean package/)
 		}
-		dir("kotlin-cassandra-app") {
+		dir("kotlin-kafka-app") {
 	      bat(/${gradleHome}\bin\gradle clean build/)
 		}
 	}
@@ -57,10 +57,10 @@ node {
 		dir("react-redux-app") {
 	      bat(/npm test/)
 		}
-		dir("spring-cassandra-app") {
+		dir("java-cassandra-app") {
 	      bat(/${mavenHome}\bin\mvn test/)
 		}
-		dir("kotlin-cassandra-app") {
+		dir("kotlin-kafka-app") {
 	      bat(/${gradleHome}\bin\gradle test/)
 		}
 	}
@@ -82,8 +82,11 @@ node {
 		dir("react-redux-app") {
 		  bat(/docker build -t react-redux-app:B${BUILD_NUMBER} -f Dockerfile ./)
 		}
-		dir("kotlin-cassandra-app") {
-		  bat(/docker build -t kotlin-cassandra-app:B${BUILD_NUMBER} -f Dockerfile ./)
+		dir("java-cassandra-app") {
+		  bat(/docker build -t java-cassandra-app:B${BUILD_NUMBER} -f Dockerfile ./)
+		}
+		dir("kotlin-kafka-app") {
+		  bat(/docker build -t kotlin-kafka-app:B${BUILD_NUMBER} -f Dockerfile ./)
 		}
 	}
 	*/
@@ -110,10 +113,10 @@ node {
 		dir("react-redux-app") {
 	      bat(/echo "There are no integration tests defined yet."/)
 		}
-	    dir("spring-cassandra-app") {
+	    dir("java-cassandra-app") {
 	      bat(/${mavenHome}\bin\mvn test -Pintegration-tests/)
 		}
-		dir("kotlin-cassandra-app") {
+		dir("kotlin-kafka-app") {
 	      bat(/${gradleHome}\bin\gradle test/)
 		}
 	}
@@ -138,15 +141,19 @@ node {
 		}
 		dir("node-mongo-app") {
 		  bat(/docker tag node-mongo-app:B${BUILD_NUMBER} kchandrakant/backend:node-mongo-app/)
-		  bat(/docker push kchandrakant/frontend:angular-app/)
+		  bat(/docker push kchandrakant/backend:node-mongo-app/)
 		}
 		dir("react-redux-app") {
 		  bat(/docker tag react-redux-app:B${BUILD_NUMBER} kchandrakant/frontend:react-redux-app/)
-		  bat(/docker push kchandrakant/frontend:angular-app/)
+		  bat(/docker push kchandrakant/frontend:react-redux-app/)
 		}
-		dir("kotlin-cassandra-app") {
-		  bat(/docker tag kotlin-cassandra-app:B${BUILD_NUMBER} kchandrakant/backend:kotlin-cassandra-app/)
-		  bat(/docker push kchandrakant/frontend:angular-app/)
+		dir("java-cassandra-app") {
+		  bat(/docker tag java-cassandra-app:B${BUILD_NUMBER} kchandrakant/backend:java-cassandra-app/)
+		  bat(/docker push kchandrakant/backend:java-cassandra-app/)
+		}
+		dir("kotlin-kafka-app") {
+		  bat(/docker tag kotlin-kafka-app:B${BUILD_NUMBER} kchandrakant/backend:kotlin-kafka-app/)
+		  bat(/docker push kchandrakant/backend:kotlin-kafka-app/)
 		}
 	}
 	*/

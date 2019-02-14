@@ -8,9 +8,9 @@ services:
       - data-cassandra:/var/lib/cassandra
 
   api:
-    #build: ../spring-cassandra-app
-    #image: kchandrakant/backend:spring-cassandra-app
-    image: spring-cassandra:1.0
+    #build: ../java-cassandra-app
+    #image: kchandrakant/backend:java-cassandra-app
+    image: java-cassandra:1.0
     ports:
      - 8085:8085
     depends_on:
