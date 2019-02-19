@@ -2,9 +2,11 @@ package com.sapient.learning.controller;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +23,9 @@ public class WordController {
 	@Autowired
 	WordRepository wordRepository;
 
+	@Async("threadPoolTaskExecutor")
 	@GetMapping("/words")
-	public List<Word> getAllWords() {
+	public CompletableFuture<List<Word>> getAllWords() {
 		System.out.println("Get all Words...");
 		
 		List<Word> words = wordRepository.findAll();
@@ -32,7 +35,7 @@ public class WordController {
 			.limit(25)
 			.collect(Collectors.toList());
 
-		return words;
+		return CompletableFuture.completedFuture(words);
 	}
 	
 }

@@ -29,24 +29,6 @@ node {
 		}
 	}
 	
-	stage('Application Build') {
-		dir("angular-app") {
-	      bat(/npm run build/)
-		}
-		dir("node-mongo-app") {
-		  bat(/echo "There is nothing to do here."/)
-		}
-		dir("react-redux-app") {
-	      bat(/npm run build/)
-		}
-		dir("java-cassandra-app") {
-		  bat(/${mavenHome}\bin\mvn clean package/)
-		}
-		dir("kotlin-kafka-app") {
-	      bat(/${gradleHome}\bin\gradle clean build/)
-		}
-	}
-	
 	stage('Unit Testing') {
 		dir("angular-app") {
 	      bat(/npm test/)
@@ -62,6 +44,24 @@ node {
 		}
 		dir("kotlin-kafka-app") {
 	      bat(/${gradleHome}\bin\gradle test/)
+		}
+	}
+	
+	stage('Application Build') {
+		dir("angular-app") {
+	      bat(/npm run build/)
+		}
+		dir("node-mongo-app") {
+		  bat(/echo "There is nothing to do here."/)
+		}
+		dir("react-redux-app") {
+	      bat(/npm run build/)
+		}
+		dir("java-cassandra-app") {
+		  bat(/${mavenHome}\bin\mvn -DskipTests clean package/)
+		}
+		dir("kotlin-kafka-app") {
+	      bat(/${gradleHome}\bin\gradle clean build -x test/)
 		}
 	}
 	
