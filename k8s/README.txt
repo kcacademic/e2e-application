@@ -1,0 +1,1 @@
+& minikube docker-env | Invoke-Expression
