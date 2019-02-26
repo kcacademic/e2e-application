@@ -6,6 +6,11 @@ Start
 =====
 mvn spring-boot:run
 
+Integration Tests
+=================
+mvn test -Pintegration-tests
+mvn test -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=8080 -Pintegration-tests
+
 Perf Run
 ========
 jmeter -Jjmeter.save.saveservice.output_format=xml -n -t perf/jmeterTestPlan.jmx -l target/perf-reports/jmeterTestResult.jtl -j target/perf-reports/jmeter.log

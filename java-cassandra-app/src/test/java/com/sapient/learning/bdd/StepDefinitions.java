@@ -20,7 +20,12 @@ public class StepDefinitions {
 	@Given("^Request is sent to /api/words$")
 	public void request_is_sent_to_api_words() throws Exception {
 		System.out.println("The given step has been invoked.");
-		request = RestAssured.given();
+		String host = System.getProperty("http.proxyHost");
+		String port = System.getProperty("http.proxyPort");
+		if(host!=null && port !=null)
+			request = RestAssured.given().proxy(host, Integer.parseInt(port));
+		else
+			request = RestAssured.given();
 	}
 
 	@When("^Response is generated$")
