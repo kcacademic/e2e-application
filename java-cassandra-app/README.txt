@@ -10,6 +10,11 @@ Perf Run
 ========
 jmeter -Jjmeter.save.saveservice.output_format=xml -n -t perf/jmeterTestPlan.jmx -l target/perf-reports/jmeterTestResult.jtl -j target/perf-reports/jmeter.log
 
+Security Scan
+=============
+cd C:\Program Files\OWASP\Zed Attack Proxy
+zap.bat -quickurl http://localhost:8085/api/words -quickout C:\Users\kumchand0\Desktop\report.xml -cmd
+
 CONTAINERIZATION
 ================
 docker images
