@@ -1,6 +1,14 @@
 BUILD
 =====
-mvn install
+mvn clean package
+
+Start
+=====
+mvn spring-boot:run
+
+Perf Run
+========
+jmeter -Jjmeter.save.saveservice.output_format=xml -n -t perf/jmeterTestPlan.jmx -l target/perf-reports/jmeterTestResult.jtl -j target/perf-reports/jmeter.log
 
 CONTAINERIZATION
 ================

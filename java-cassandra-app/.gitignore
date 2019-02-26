@@ -28,3 +28,5 @@
 .mvn
 mvnw
 mvnw.cmd
+*.log
+*.jtl
