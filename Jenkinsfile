@@ -102,29 +102,30 @@ node {
 	}
 	*/
 	
-	
+	/*
 	stage('Integration Testing') {
 	    dir("java-cassandra-app") {
 	      bat(/${mavenHome}\bin\mvn test -Pintegration-tests/)
 		  step([$class: 'ArtifactArchiver', artifacts: 'target/cucumber-reports/*.json'])
 		}	
 	}
+	*/
 	
-	
+	/*
 	stage('Performance Testing') {
 	    dir("java-cassandra-app") {
 	      bat(/${mavenHome}\bin\mvn verify/)
 		  step([$class: 'ArtifactArchiver', artifacts: 'target/jmeter/results/*.jtl'])
 		}	
 	}
-	
+	*/
 	
 	stage('Security Testing') {
 	    dir("java-cassandra-app") {
 		  dir("C:\\Program Files\\OWASP\\Zed Attack Proxy") {
-		  script {
-		    startZap(host: "127.0.0.1", port: 9091, timeout:500, zapHome: "C:\\Program Files\\OWASP\\Zed Attack Proxy", sessionPath:"session.session")
-	      }
+		    script {
+		      startZap(host: "127.0.0.1", port: 9091, timeout:500, zapHome: ".")
+	        }
 		  }
 		  bat(/${mavenHome}\bin\mvn test -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=9091 -Pintegration-tests/)
 		  script {
