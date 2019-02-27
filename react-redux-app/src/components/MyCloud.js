@@ -23,7 +23,6 @@ class MyCloud extends Component {
 
   render() {
 	  console.log(this.props.words)
-	  console.log(typeof(this.props.words))
     return (
       <div className='app-outer'>
         <div className='app-inner'>
@@ -38,15 +37,13 @@ class MyCloud extends Component {
               }),
               padding: 5,
             }}>
-			
-			{this.props.words.map(word => {
+			        {this.props.words.map(word => {
                 return (
-				<li key={word.word}>
-					<div style={{fontSize: (word.count)}}> {word.word} </div>
-				</li>
+				          <li key={word.word}>
+					          <div style={{fontSize: (word.count)}}> {word.word} </div>
+				          </li>
                 );
-            })}
-			
+              })}
           </TagCloud>
         </div>
       </div>
