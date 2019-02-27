@@ -10,7 +10,7 @@ node {
 	stage('SCM Checkout') {
       git 'https://github.com/kcacademic/e2e-application.git'
 	}
-	
+	/*
 	stage('Dependency Installation') {
 		dir("angular-app") {
 	      bat(/npm install/)
@@ -70,7 +70,7 @@ node {
 	      bat(/"${scannerHome}\bin\sonar-scanner"/)
 		}
 	}
-	
+	*/
 	/*
 	stage('Docker Build') {
 		dir("angular-app") {
@@ -106,17 +106,18 @@ node {
 	stage('Integration Testing') {
 	    dir("java-cassandra-app") {
 	      bat(/${mavenHome}\bin\mvn test -Pintegration-tests/)
-		}
+		}	
 	}
 	*/
 	
-	/*
+	
 	stage('Performance Testing') {
 	    dir("java-cassandra-app") {
 	      bat(/${mavenHome}\bin\mvn verify/)
 		}
+		step([$class: 'ArtifactArchiver', artifacts: '**/*.jtl'])
 	}
-	*/
+	
 	
 	/*
 	stage('Security Testing') {
