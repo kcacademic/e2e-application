@@ -10,7 +10,7 @@ node {
 	stage('SCM Checkout') {
       git 'https://github.com/kcacademic/e2e-application.git'
 	}
-	
+	/*
 	stage('Dependency Installation') {
 		dir("angular-app") {
 	      bat(/npm install/)
@@ -70,7 +70,7 @@ node {
 	      bat(/"${scannerHome}\bin\sonar-scanner"/)
 		}
 	}
-	
+	*/
 	/*
 	stage('Docker Build') {
 		dir("angular-app") {
@@ -102,41 +102,28 @@ node {
 	}
 	*/
 	
-	/*
+	
 	stage('Integration Testing') {
 	    dir("java-cassandra-app") {
-	      bat(/${mavenHome}\bin\mvn test -Pintegration-tests/)
+	      bat(/${mavenHome}\bin\mvn verify -Pinteg-tests -Dskip.surefire.tests -Dzap.skip/)
 		  step([$class: 'ArtifactArchiver', artifacts: 'target/cucumber-reports/*.json'])
 		}	
 	}
-	*/
 	
-	/*
 	stage('Performance Testing') {
 	    dir("java-cassandra-app") {
-	      bat(/${mavenHome}\bin\mvn verify/)
+	      bat(/${mavenHome}\bin\mvn verify -Pperf-tests -Dskip.surefire.tests/)
 		  step([$class: 'ArtifactArchiver', artifacts: 'target/jmeter/results/*.jtl'])
 		}	
 	}
-	*/
 	
-	/*
 	stage('Security Testing') {
 	    dir("java-cassandra-app") {
-		  dir("C:\\Program Files\\OWASP\\Zed Attack Proxy") {
-		    script {
-		      startZap(host: "127.0.0.1", port: 9091, timeout:500, zapHome: ".")
-	        }
-		  }
-		  bat(/${mavenHome}\bin\mvn test -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=9091 -Pintegration-tests/)
-		  dir("C:\\Program Files\\OWASP\\Zed Attack Proxy") {
-		    script {
-		      archiveZap()
-	        }
-		  }
+		  bat(/${mavenHome}\bin\mvn verify -Psecurity-tests -Dskip.surefire.tests/)
+		  step([$class: 'ArtifactArchiver', artifacts: 'target/zap-reports/*.xml'])
 		}
 	}
-	*/
+	
 	
 	/*
 	stage('Docker Compose Shutdown') {

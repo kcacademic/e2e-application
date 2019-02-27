@@ -6,11 +6,12 @@ Start
 =====
 mvn spring-boot:run
 
-Integration Tests
-=================
-mvn test -Pintegration-tests
-mvn test -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=8080 -Pintegration-tests
-mvn verify
+Testing (Maven)
+===============
+mvn verify -Pinteg-tests -Dskip.surefire.tests -Dzap.skip
+mvn verify -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=9091 -Pinteg-tests -Dskip.surefire.tests
+mvn verify -Pperf-tests -Dskip.surefire.tests
+mvn verify -Psecurity-tests -Dskip.surefire.tests
 
 Perf Run
 ========
