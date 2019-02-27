@@ -10,10 +10,11 @@ Integration Tests
 =================
 mvn test -Pintegration-tests
 mvn test -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=8080 -Pintegration-tests
+mvn verify
 
 Perf Run
 ========
-jmeter -Jjmeter.save.saveservice.output_format=xml -n -t perf/jmeterTestPlan.jmx -l target/perf-reports/jmeterTestResult.jtl -j target/perf-reports/jmeter.log
+jmeter -Jjmeter.save.saveservice.output_format=xml -n -t src/test/jmeter/jmeterTestPlan.jmx -l target/jmeter/results/jmeterTestResult.jtl -j target/jmeter/logs/jmeter.log
 
 Security Scan
 =============

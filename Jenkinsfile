@@ -104,20 +104,24 @@ node {
 	
 	/*
 	stage('Integration Testing') {
-		dir("angular-app") {
-	      bat(/echo "There are no integration tests defined yet."/)
-		}
-		dir("node-mongo-app") {
-	      bat(/echo "There are no integration tests defined yet."/)
-		}
-		dir("react-redux-app") {
-	      bat(/echo "There are no integration tests defined yet."/)
-		}
 	    dir("java-cassandra-app") {
 	      bat(/${mavenHome}\bin\mvn test -Pintegration-tests/)
 		}
-		dir("kotlin-kafka-app") {
-	      bat(/${gradleHome}\bin\gradle test/)
+	}
+	*/
+	
+	/*
+	stage('Performance Testing') {
+	    dir("java-cassandra-app") {
+	      bat(/${mavenHome}\bin\mvn verify/)
+		}
+	}
+	*/
+	
+	/*
+	stage('Security Testing') {
+	    dir("java-cassandra-app") {
+	      bat(/${mavenHome}\bin\mvn test -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=8080 -Pintegration-tests/)
 		}
 	}
 	*/
