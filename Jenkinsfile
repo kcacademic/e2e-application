@@ -121,7 +121,7 @@ node {
 	
 	stage('Security Testing') {
 	    dir("java-cassandra-app") {
-		  dir("C:\Program Files\OWASP\Zed Attack Proxy") {
+		  dir("C:\\Program Files\\OWASP\\Zed Attack Proxy") {
 		  script {
 		    startZap(host: "127.0.0.1", port: 9091, timeout:500, zapHome: "C:\\Program Files\\OWASP\\Zed Attack Proxy", sessionPath:"session.session")
 	      }
