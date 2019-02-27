@@ -102,13 +102,14 @@ node {
 	}
 	*/
 	
-	/*
+	
 	stage('Integration Testing') {
 	    dir("java-cassandra-app") {
 	      bat(/${mavenHome}\bin\mvn test -Pintegration-tests/)
-		}	
+		}
+		step([$class: 'ArtifactArchiver', artifacts: '**/*.json'])
 	}
-	*/
+	
 	
 	
 	stage('Performance Testing') {
