@@ -122,11 +122,13 @@ node {
 	
 	stage('Security Testing') {
 	    dir("java-cassandra-app") {
+		  /*
 		  dir("C:\\Program Files\\OWASP\\Zed Attack Proxy") {
 		    script {
 		      startZap(host: "127.0.0.1", port: 9091, timeout:500, zapHome: ".")
 	        }
 		  }
+		  */
 		  bat(/${mavenHome}\bin\mvn test -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=9091 -Pintegration-tests/)
 		  script {
 		    archiveZap()
