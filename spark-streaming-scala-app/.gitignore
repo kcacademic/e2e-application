@@ -28,4 +28,5 @@
 /spark-warehouse/
 /bin/
 /lib/
-/project/
+/project/project/
+/project/target/
