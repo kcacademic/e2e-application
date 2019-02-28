@@ -5,6 +5,7 @@ node {
       scannerHome = tool "SonarRunner"
 	  mavenHome = tool "M3"
 	  gradleHome = tool "Gradle"
+	  sbtHome = tool "SBT"
 	}
 	
 	stage('SCM Checkout') {
@@ -27,7 +28,17 @@ node {
 		dir("kotlin-kafka-app") {
 	      bat(/echo "There is nothing to do here."/)
 		}
+		dir("spark-streaming-java-app") {
+	      bat(/echo "There is nothing to do here."/)
+		}
+		dir("spark-streaming-scala-app") {
+	      bat(/echo "There is nothing to do here."/)
+		}
+		dir("python-keras-app") {
+	      bat(/echo "There is nothing to do here."/)
+		}
 	}
+	*/
 	
 	stage('Unit Testing') {
 		dir("angular-app") {
@@ -45,6 +56,15 @@ node {
 		dir("kotlin-kafka-app") {
 	      bat(/${gradleHome}\bin\gradle test/)
 		}
+		dir("spark-streaming-java-app") {
+	      bat(/${mavenHome}\bin\mvn test/)
+		}
+		dir("spark-streaming-scala-app") {
+	      bat(/${sbtHome}\bin\sbt test/)
+		}
+		dir("python-keras-app") {
+	      bat(/echo "There is nothing to do here."/)
+		}
 	}
 	
 	stage('Application Build') {
@@ -58,10 +78,19 @@ node {
 	      bat(/npm run build/)
 		}
 		dir("java-cassandra-app") {
-		  bat(/${mavenHome}\bin\mvn -DskipTests clean package/)
+		  bat(/${mavenHome}\bin\mvn -DskipTests clean compile package/)
 		}
 		dir("kotlin-kafka-app") {
 	      bat(/${gradleHome}\bin\gradle clean build -x test/)
+		}
+		dir("spark-streaming-java-app") {
+	      bat(/${mavenHome}\bin\mvn -DskipTests clean compile package/)
+		}
+		dir("spark-streaming-scala-app") {
+	      bat(/${sbtHome}\bin\sbt clean compile package/)
+		}
+		dir("python-keras-app") {
+	      bat(/echo "There is nothing to do here."/)
 		}
 	}
 	
@@ -70,7 +99,7 @@ node {
 	      bat(/"${scannerHome}\bin\sonar-scanner"/)
 		}
 	}
-	*/
+	
 	/*
 	stage('Docker Build') {
 		dir("angular-app") {
@@ -88,6 +117,15 @@ node {
 		dir("kotlin-kafka-app") {
 		  bat(/docker build -t kotlin-kafka-app:B${BUILD_NUMBER} -f Dockerfile ./)
 		}
+		dir("spark-streaming-java-app") {
+	      bat(/docker build -t spark-streaming-java-app:B${BUILD_NUMBER} -f Dockerfile ./)
+		}
+		dir("spark-streaming-scala-app") {
+	      bat(/docker build -t spark-streaming-scala-app:B${BUILD_NUMBER} -f Dockerfile ./)
+		}
+		dir("python-keras-app") {
+	      bat(/docker build -t python-keras-app:B${BUILD_NUMBER} -f Dockerfile ./)
+		}
 	}
 	*/
 	
@@ -102,7 +140,7 @@ node {
 	}
 	*/
 	
-	
+	/*
 	stage('Integration Testing') {
 	    dir("java-cassandra-app") {
 	      bat(/${mavenHome}\bin\mvn verify -Pinteg-tests -Dskip.surefire.tests -Dzap.skip/)
@@ -123,7 +161,7 @@ node {
 		  step([$class: 'ArtifactArchiver', artifacts: 'target/zap-reports/*.xml'])
 		}
 	}
-	
+	*/
 	
 	/*
 	stage('Docker Compose Shutdown') {
@@ -155,8 +193,20 @@ node {
 		  bat(/docker push kchandrakant/backend:java-cassandra-app/)
 		}
 		dir("kotlin-kafka-app") {
-		  bat(/docker tag kotlin-kafka-app:B${BUILD_NUMBER} kchandrakant/backend:kotlin-kafka-app/)
+		  bat(/docker tag kotlin-kafka-app:B${BUILD_NUMBER} kchandrakant/data:kotlin-kafka-app/)
 		  bat(/docker push kchandrakant/backend:kotlin-kafka-app/)
+		}
+		dir("spark-streaming-java-app") {
+	      bat(/docker tag spark-streaming-java-app:B${BUILD_NUMBER} kchandrakant/data:spark-streaming-java-app/)
+		  bat(/docker push kchandrakant/data:spark-streaming-java-app/)
+		}
+		dir("spark-streaming-scala-app") {
+	      bat(/docker tag kotlin-kafka-app:B${BUILD_NUMBER} kchandrakant/data:spark-streaming-scala-app/)
+		  bat(/docker push kchandrakant/data:spark-streaming-scala-app/)
+		}
+		dir("python-keras-app") {
+	      bat(/docker tag kotlin-kafka-app:B${BUILD_NUMBER} kchandrakant/data:python-keras-app/)
+		  bat(/docker push kchandrakant/data:python-keras-app/)
 		}
 	}
 	*/

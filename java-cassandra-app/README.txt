@@ -1,6 +1,6 @@
 BUILD
 =====
-mvn clean package
+mvn clean compile package
 
 Start
 =====

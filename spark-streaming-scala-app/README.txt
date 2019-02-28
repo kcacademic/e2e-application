@@ -1,6 +1,6 @@
 BUILD
 =====
-sbt package
+sbt clean compile package
 sbt eclipse
 
 CONTAINERIZATION

@@ -1,6 +1,6 @@
 BUILD
 =====
-mvn install
+mvn clean compile package
 
 CONTAINERIZATION
 ================
