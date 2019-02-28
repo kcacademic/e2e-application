@@ -5,7 +5,8 @@ node {
       scannerHome = tool "SonarRunner"
 	  mavenHome = tool "M3"
 	  gradleHome = tool "Gradle"
-	  sbtHome = tool "SBT"
+	  //sbtHome = tool "SBT"
+	  sbtHome = {tool name: 'sbt', type:'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'}
 	}
 	
 	stage('SCM Checkout') {
