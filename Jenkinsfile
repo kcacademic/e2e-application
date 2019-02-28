@@ -5,7 +5,7 @@ node {
       scannerHome = tool "SonarRunner"
 	  mavenHome = tool "M3"
 	  gradleHome = tool "Gradle"
-	  //sbtHome = tool "SBT"
+	  sbtHome = tool "SBT"
 	}
 	
 	stage('SCM Checkout') {
@@ -62,7 +62,7 @@ node {
 		}
 		*/
 		dir("spark-streaming-scala-app") {
-	      bat(/${sbtHome = {tool name: 'SBT', type:'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'}/bin/sbt test/)
+	      bat(/sbt test/)
 		}
 		dir("python-keras-app") {
 	      bat(/echo "There is nothing to do here."/)
@@ -91,7 +91,7 @@ node {
 		}
 		*/
 		dir("spark-streaming-scala-app") {
-	      bat(/${sbtHome}\bin\sbt clean compile package/)
+	      bat(/sbt clean compile package/)
 		}
 		dir("python-keras-app") {
 	      bat(/echo "There is nothing to do here."/)
