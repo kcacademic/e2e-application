@@ -27,7 +27,7 @@ services:
      - kafka
      - cassandra
      - mongo
-    command: ["--conf", "spark.driver.extraJavaOptions=-Denv=prod", "--class", "com.sapient.learning.WordDataStream", "--master", "local", "app.jar"]
+    command: ["--conf", "spark.driver.extraJavaOptions=-Dconfig.resource=application-prod.conf", "--class", "com.sapient.learning.WordDataStream", "--master", "local", "app.jar"]
     
 volumes:
   data-mongo:

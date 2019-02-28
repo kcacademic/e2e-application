@@ -23,30 +23,29 @@ object WordDataStream {
   def main(args: Array[String]) {
 
     val checkpointDir = "./.checkpoint"
+    
     val sparkConf = new SparkConf().setAppName("Word Counting")
     sparkConf.setIfMissing("spark.master", "local[2]")
-    sparkConf.setIfMissing("spark.cassandra.connection.host", "127.0.0.1")
-    sparkConf.setIfMissing("spark.mongodb.output.uri", "mongodb://localhost:27017/vocabulary.words")
-
+    sparkConf.setIfMissing("spark.cassandra.connection.host", 
+        MyProperties.getValue("cassandra.server"))
+    sparkConf.setIfMissing("spark.mongodb.output.uri", 
+        "mongodb://" + MyProperties.getValue("mongo.server") +
+        "/" + MyProperties.getValue("mongo.database") +
+        "." + MyProperties.getValue("mongo.collection"))
+    
     val sparkSess = SparkSession.builder().config(sparkConf).getOrCreate()
     val sc = sparkSess.sparkContext
     val ssc = new StreamingContext(sc, Seconds(2))
 
     ssc.checkpoint(checkpointDir)
-
-    val kafkaTopic = "twitter"
-    val kafkaBroker = "localhost:9092"
-
-    val cassandraKeyspace = "isd_weather_data"
-    val cassandraTableRaw = "raw_weather_data"
-    val cassandraTableDailyPrecip = "daily_aggregate_precip"
-
-    val topics: Set[String] = kafkaTopic.split(",").map(_.trim).toSet
+    
+    val kafkaBroker = MyProperties.getValue("kafka.server")
+    val kafkaTopic = MyProperties.getValue("kafka.topic")
+    
+    System.out.println("Connecting to Kafka: " + kafkaBroker + ":" + kafkaTopic)
+    
     val kafkaParams = Map[String, String]("metadata.broker.list" -> kafkaBroker)
-
-    localLogger.info(s"connecting to brokers: $kafkaBroker")
-    localLogger.info(s"kafkaParams: $kafkaParams")
-    localLogger.info(s"topics: $topics")
+    val topics: Set[String] = kafkaTopic.split(",").map(_.trim).toSet
 
     val rawStream = KafkaUtils.createDirectStream[String, String, StringDecoder, StringDecoder](ssc, kafkaParams, topics)
 
@@ -63,7 +62,9 @@ object WordDataStream {
 
     import com.datastax.spark.connector.streaming._
 
-    statefulStream.saveToCassandra("vocabulary", "words")
+    statefulStream.saveToCassandra(
+        MyProperties.getValue("cassandra.keyspace"), 
+        MyProperties.getValue("cassandra.table"))
 
     statefulStream.foreachRDD({ rdd =>
       import sparkSess.implicits._

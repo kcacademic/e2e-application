@@ -43,5 +43,6 @@ libraryDependencies ++= Seq(
   "com.datastax.spark" %% "spark-cassandra-connector" % "2.3.0",
   "org.mongodb.spark" %% "mongo-spark-connector" % "2.2.6",
   "org.scalactic" %% "scalactic" % "3.0.5",
-  "org.scalatest" %% "scalatest" % "3.0.5" % "test"
+  "org.scalatest" %% "scalatest" % "3.0.5" % "test",
+  "com.typesafe" % "config" % "1.3.1"
 )

@@ -62,6 +62,8 @@ public class WordDataStream {
 
 		Collection<String> topics = Arrays.asList(props.getValue("kafka.topic"));
 		
+		System.out.println("Connecting to Kafka: " + props.getValue("kafka.server") + ":" + props.getValue("kafka.topic"));
+		
 		SparkConf sparkConf = new SparkConf();
 		sparkConf.setMaster("local[2]");
 		sparkConf.setAppName("WordCountingAppWithCheckpoint");
