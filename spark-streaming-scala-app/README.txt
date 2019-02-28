@@ -1,8 +1,9 @@
-BUILD
-=====
-sbt clean compile package
+SBT COMMANDS
+============
 sbt eclipse
+sbt clean compile package
 sbt test
+sbt assembly
 
 CONTAINERIZATION
 ================

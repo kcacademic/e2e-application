@@ -89,8 +89,9 @@ node {
 		}
 		/*
 		dir("spark-streaming-scala-app") {
-	      bat(/sbt clean compile package/)
-		}*/
+	      bat(/sbt assembly/)
+		}
+		*/
 		dir("python-keras-app") {
 	      bat(/echo "There is nothing to do here."/)
 		}
