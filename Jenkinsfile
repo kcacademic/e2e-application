@@ -62,7 +62,7 @@ node {
 		}
 		*/
 		dir("spark-streaming-scala-app") {
-	      bat(/sbt test/)
+	      bat(/${sbtHome}\bin\sbt test/)
 		}
 		dir("python-keras-app") {
 	      bat(/echo "There is nothing to do here."/)
