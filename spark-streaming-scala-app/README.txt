@@ -2,6 +2,7 @@ BUILD
 =====
 sbt clean compile package
 sbt eclipse
+sbt test
 
 CONTAINERIZATION
 ================

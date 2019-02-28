@@ -11,7 +11,7 @@ node {
 	stage('SCM Checkout') {
       git 'https://github.com/kcacademic/e2e-application.git'
 	}
-	/*
+	
 	stage('Dependency Installation') {
 		dir("angular-app") {
 	      bat(/npm install/)
@@ -38,10 +38,8 @@ node {
 	      bat(/echo "There is nothing to do here."/)
 		}
 	}
-	*/
 	
 	stage('Unit Testing') {
-		/*
 		dir("angular-app") {
 	      bat(/npm test/)
 		}
@@ -60,17 +58,17 @@ node {
 		dir("spark-streaming-java-app") {
 	      bat(/${mavenHome}\bin\mvn test/)
 		}
-		*/
+		/*
 		dir("spark-streaming-scala-app") {
 	      bat(/${sbtHome}\bin\sbt test/)
 		}
+		*/
 		dir("python-keras-app") {
 	      bat(/echo "There is nothing to do here."/)
 		}
 	}
 	
 	stage('Application Build') {
-		/*
 		dir("angular-app") {
 	      bat(/npm run build/)
 		}
@@ -89,10 +87,10 @@ node {
 		dir("spark-streaming-java-app") {
 	      bat(/${mavenHome}\bin\mvn -DskipTests clean compile package/)
 		}
-		*/
+		/*
 		dir("spark-streaming-scala-app") {
 	      bat(/sbt clean compile package/)
-		}
+		}*/
 		dir("python-keras-app") {
 	      bat(/echo "There is nothing to do here."/)
 		}

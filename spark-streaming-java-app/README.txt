@@ -1,6 +1,7 @@
 BUILD
 =====
 mvn clean compile package
+mvn test
 
 CONTAINERIZATION
 ================
