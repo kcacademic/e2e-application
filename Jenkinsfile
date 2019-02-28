@@ -41,6 +41,7 @@ node {
 	*/
 	
 	stage('Unit Testing') {
+		/*
 		dir("angular-app") {
 	      bat(/npm test/)
 		}
@@ -59,6 +60,7 @@ node {
 		dir("spark-streaming-java-app") {
 	      bat(/${mavenHome}\bin\mvn test/)
 		}
+		*/
 		dir("spark-streaming-scala-app") {
 	      bat(/${sbtHome}\bin\sbt test/)
 		}
@@ -68,6 +70,7 @@ node {
 	}
 	
 	stage('Application Build') {
+		/*
 		dir("angular-app") {
 	      bat(/npm run build/)
 		}
@@ -86,6 +89,7 @@ node {
 		dir("spark-streaming-java-app") {
 	      bat(/${mavenHome}\bin\mvn -DskipTests clean compile package/)
 		}
+		*/
 		dir("spark-streaming-scala-app") {
 	      bat(/${sbtHome}\bin\sbt clean compile package/)
 		}
