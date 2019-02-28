@@ -51,12 +51,15 @@ node {
 		}
 		dir("java-cassandra-app") {
 	      bat(/${mavenHome}\bin\mvn test/)
+		  bat(/${mavenHome}\bin\mvn jacoco:report/)
 		}
 		dir("kotlin-kafka-app") {
 	      bat(/${gradleHome}\bin\gradle test/)
+		  bat(/${gradleHome}\bin\gradle jacocoTestReport/)
 		}
 		dir("spark-streaming-java-app") {
 	      bat(/${mavenHome}\bin\mvn test/)
+		  bat(/${mavenHome}\bin\mvn jacoco:report/)
 		}
 		/*
 		dir("spark-streaming-scala-app") {

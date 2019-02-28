@@ -1,6 +1,8 @@
 BUILD
 =====
 gradle clean build
+gradle test
+gradle jacocoTestReport
 gradle bootRun
 
 CONTAINERIZATION

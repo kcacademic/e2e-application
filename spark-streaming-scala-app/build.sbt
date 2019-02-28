@@ -17,8 +17,7 @@ assemblyMergeStrategy in assembly := {
     oldStrategy(x)
 }
 
-//scalaVersion := "2.10.6"
-scalaVersion := "2.11.8"
+scalaVersion := "2.11.11"
 
 coverageEnabled := true
 
@@ -42,5 +41,7 @@ libraryDependencies ++= Seq(
   "org.apache.spark" %% "spark-streaming" % "2.3.0" % "provided",
   "org.apache.spark" %% "spark-streaming-kafka" % "1.6.3",
   "com.datastax.spark" %% "spark-cassandra-connector" % "2.3.0",
-  "org.mongodb.spark" %% "mongo-spark-connector" % "2.2.6"
+  "org.mongodb.spark" %% "mongo-spark-connector" % "2.2.6",
+  "org.scalactic" %% "scalactic" % "3.0.5",
+  "org.scalatest" %% "scalatest" % "3.0.5" % "test"
 )

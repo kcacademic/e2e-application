@@ -14,6 +14,16 @@ public class Utility {
 		
 		String str = "RT @Femi_Sorry: I am sick to death of privileged politicians saying that they personally would be happy with No Deal Brexit.";
 		
+		String[] words = cleanse(str);
+		
+		System.out.println(words.length);
+		System.out.println(Arrays.toString(words));
+		
+	}
+	
+	
+	public static String[] cleanse(String str) {
+		
         String urlPattern = "((https?|ftp|gopher|telnet|file|Unsure|http):((//)|(\\\\))+[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&]*)";
         Pattern p = Pattern.compile(urlPattern,Pattern.CASE_INSENSITIVE);
         Matcher m = p.matcher(str);
@@ -23,23 +33,18 @@ public class Utility {
             i++;
         }
 		
-		str = str
+		String[] words = str
 				.replaceAll("@\\p{L}+", "")
 				.replaceAll("[^a-zA-Z ]", "")
 				.replaceAll("\\b\\w{1,4}\\b","")
-				.toLowerCase();
-		
-		System.out.println(str);
-		
-		String[] words = str.split("\\s+");
+				.toLowerCase()
+				.split("\\s+");
 		
 		List<String> list = new ArrayList<String>(Arrays.asList(words));
 		list.removeIf(StringUtils::isBlank);
 		words = list.toArray(new String[0]);
 		
-		System.out.println(words.length);
-		System.out.println(Arrays.toString(words));
-		
+		return words;
 	}
 
 }

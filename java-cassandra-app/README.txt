@@ -1,6 +1,8 @@
 BUILD
 =====
 mvn clean compile package
+mvn test
+mvn jacoco:report
 
 Start
 =====

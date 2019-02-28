@@ -3,16 +3,12 @@ package com.sapient.learning;
 import static com.datastax.spark.connector.japi.CassandraJavaUtil.javaFunctions;
 import static com.datastax.spark.connector.japi.CassandraJavaUtil.mapToRow;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.log4j.Level;
@@ -105,7 +101,7 @@ public class WordDataStream {
 		
 		JavaDStream<String> words = lines.flatMap(
 				(FlatMapFunction<String, String>)
-					str -> Arrays.asList(cleanse(str)).iterator()
+					str -> Arrays.asList(Utility.cleanse(str)).iterator()
 				);
 		
 		JavaPairDStream<String, Integer> wordCounts = words.mapToPair(
@@ -150,31 +146,6 @@ public class WordDataStream {
 		streamingContext.start();
 		streamingContext.awaitTermination();
 		
-	}
-	
-	public static String[] cleanse(String str) {
-		
-        String urlPattern = "((https?|ftp|gopher|telnet|file|Unsure|http):((//)|(\\\\))+[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&]*)";
-        Pattern p = Pattern.compile(urlPattern,Pattern.CASE_INSENSITIVE);
-        Matcher m = p.matcher(str);
-        int i = 0;
-        while (m.find()) {
-            str = str.replaceAll(m.group(i),"").trim();
-            i++;
-        }
-		
-		String[] words = str
-				.replaceAll("@\\p{L}+", "")
-				.replaceAll("[^a-zA-Z ]", "")
-				.replaceAll("\\b\\w{1,4}\\b","")
-				.toLowerCase()
-				.split("\\s+");
-		
-		List<String> list = new ArrayList<String>(Arrays.asList(words));
-		list.removeIf(StringUtils::isBlank);
-		words = list.toArray(new String[0]);
-		
-		return words;
 	}
 	
 }

@@ -85,35 +85,11 @@ object WordDataStream {
     val parsedWordStream =
       rawStream.map(message => Tuple2(message._1, message._2))
         .map(line => line._2)
-        .flatMap(str => cleanse(str).toList)
+        .flatMap(str => Utility.cleanse(str).toList)
         .map(str => Tuple2(str, 1))
         .reduceByKey((i1, i2) => i1 + i2)
 
     parsedWordStream
-  }
-
-  def cleanse(str: String): Array[String] = {
-
-    var input = str
-    var urlPattern = "((https?|ftp|gopher|telnet|file|Unsure|http):((//)|(\\\\))+[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&]*)"
-    var p = Pattern.compile(urlPattern, Pattern.CASE_INSENSITIVE)
-    var m = p.matcher(input)
-    var i = 0
-    while (m.find()) {
-      input = input.replaceAll(m.group(i), "").trim()
-      i += 1
-    }
-
-    var words = input
-      .replaceAll("@\\p{L}+", "")
-      .replaceAll("[^a-zA-Z ]", "")
-      .replaceAll("\\b\\w{1,4}\\b", "")
-      .toLowerCase()
-      .split("\\s+")
-
-    words = words.filter(_.nonEmpty)
-
-    words
   }
 
 }
