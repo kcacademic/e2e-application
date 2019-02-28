@@ -2,7 +2,8 @@ SBT COMMANDS
 ============
 sbt eclipse
 sbt clean compile package
-sbt test
+sbt coverage test
+sbt coverageReport
 sbt assembly
 
 CONTAINERIZATION

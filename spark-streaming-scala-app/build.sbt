@@ -20,6 +20,8 @@ assemblyMergeStrategy in assembly := {
 //scalaVersion := "2.10.6"
 scalaVersion := "2.11.8"
 
+coverageEnabled := true
+
 resolvers += "jitpack" at "https://jitpack.io"
 
 // still want to be able to run in sbt
