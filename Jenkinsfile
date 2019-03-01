@@ -69,10 +69,10 @@ node {
 		}
 		*/
 		dir("python-keras-app") {
-	      bat(
-		    /set PYTHONPATH=./src/python/
-		    /${condaHome}\python -m coverage run --source src\\python src\\test\\test.py/
-		  )
+		  steps {
+		      bat "set PYTHONPATH=./src/python"
+		      bat "${condaHome}\python -m coverage run --source src\\python src\\test\\test.py"
+		  }
 		}
 	}
 	
