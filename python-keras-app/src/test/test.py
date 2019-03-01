@@ -1,6 +1,6 @@
 import unittest
 
-from src import myapp
+from src.python import myapp
 
 class TestPredict(unittest.TestCase):
     def test_predict(self):
