@@ -1,0 +1,10 @@
+version: '3'
+services:
+  store:
+    image: spotify/kafka
+    #environment:
+    # - ADVERTISED_HOST=0.0.0.0
+    # - ADVERTISED_PORT=9092
+    ports:
+      - 2181:2181
+      - 9092:9092

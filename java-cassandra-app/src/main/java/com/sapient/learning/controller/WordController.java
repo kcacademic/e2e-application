@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,10 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sapient.learning.model.Word;
 import com.sapient.learning.repo.WordRepository;
 
+
 @CrossOrigin(origins = "http://localhost")
 @RestController
 @RequestMapping("/api")
 public class WordController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(WordController.class);
 
 	@Autowired
 	WordRepository wordRepository;
@@ -26,7 +31,7 @@ public class WordController {
 	@Async("threadPoolTaskExecutor")
 	@GetMapping("/words")
 	public CompletableFuture<List<Word>> getAllWords() {
-		System.out.println("Get all Words...");
+		logger.info("Get all Words...");
 		
 		List<Word> words = wordRepository.findAll();
 		

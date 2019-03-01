@@ -1,2 +1,0 @@
-FROM spotify/kafka
-
