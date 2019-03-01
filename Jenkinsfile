@@ -38,7 +38,7 @@ node {
 		}
 		*/
 		dir("python-keras-app") {
-	      bat(/${condaHome}\python -m pip install -r ./requirements.txt/)
+	      bat(/${condaHome}\python -m pip install -r requirements.txt/)
 		}
 	}
 	
