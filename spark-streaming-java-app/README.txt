@@ -1,5 +1,6 @@
 BUILD
 =====
+mvn dependency:resolve
 mvn clean compile package
 mvn test
 mvn jacoco:report

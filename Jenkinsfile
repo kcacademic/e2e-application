@@ -14,7 +14,6 @@ node {
 	}
 	
 	stage('Dependency Installation') {
-	    /*
 		dir("angular-app") {
 	      bat(/npm install/)
 		}
@@ -25,25 +24,23 @@ node {
 	      bat(/npm install/)
 		}
 		dir("java-cassandra-app") {
-	      bat(/echo "There is nothing to do here."/)
+	      bat(/${mavenHome}\bin\mvn dependency:resolve/)
 		}
 		dir("kotlin-kafka-app") {
 	      bat(/echo "There is nothing to do here."/)
 		}
 		dir("spark-streaming-java-app") {
-	      bat(/echo "There is nothing to do here."/)
+	      bat(/${mavenHome}\bin\mvn dependency:resolve/)
 		}
 		dir("spark-streaming-scala-app") {
 	      bat(/echo "There is nothing to do here."/)
 		}
-		*/
 		dir("python-keras-app") {
 	      bat(/${condaHome}\python -m pip install -r requirements.txt/)
 		}
 	}
 	
 	stage('Unit Testing') {
-		/*
 		dir("angular-app") {
 	      bat(/npm test/)
 		}
@@ -65,6 +62,7 @@ node {
 	      bat(/${mavenHome}\bin\mvn test/)
 		  bat(/${mavenHome}\bin\mvn jacoco:report/)
 		}
+		/*
 		dir("spark-streaming-scala-app") {
 	      bat(/${sbtHome}\bin\sbt test/)
 		}
@@ -77,7 +75,6 @@ node {
 		}
 	}
 	
-	/*
 	stage('Application Build') {
 		dir("angular-app") {
 	      bat(/npm run build/)
@@ -97,9 +94,11 @@ node {
 		dir("spark-streaming-java-app") {
 	      bat(/${mavenHome}\bin\mvn -DskipTests clean compile package/)
 		}
+		/*
 		dir("spark-streaming-scala-app") {
-	      bat(/sbt assembly/)
+	      bat(/${sbtHome}\bin\sbt assembly/)
 		}
+		*/
 		dir("python-keras-app") {
 	      bat(/echo "There is nothing to do here."/)
 		}
@@ -110,7 +109,6 @@ node {
 	      bat(/"${scannerHome}\bin\sonar-scanner"/)
 		}
 	}
-	*/
 	
 	/*
 	stage('Docker Build') {
