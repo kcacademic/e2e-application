@@ -73,6 +73,7 @@ node {
 	      bat(/${condaHome}\python -m coverage run --source src test\\test.py/)
 		}
 	}
+	
 	/*
 	stage('Application Build') {
 		dir("angular-app") {
@@ -93,11 +94,11 @@ node {
 		dir("spark-streaming-java-app") {
 	      bat(/${mavenHome}\bin\mvn -DskipTests clean compile package/)
 		}
-		/*
+		
 		dir("spark-streaming-scala-app") {
 	      bat(/sbt assembly/)
 		}
-		*/
+		
 		dir("python-keras-app") {
 	      bat(/echo "There is nothing to do here."/)
 		}
@@ -109,6 +110,7 @@ node {
 		}
 	}
 	*/
+	
 	/*
 	stage('Docker Build') {
 		dir("angular-app") {
