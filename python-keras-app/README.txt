@@ -1,6 +1,10 @@
 BUILD
 =====
-<TBD>
+set PYTHONPATH=.
+python src/predict.py
+python -m unittest discover -s test
+coverage run --source src test/test.py
+coverage xml
 
 CONTAINERIZATION
 ================
