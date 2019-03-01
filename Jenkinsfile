@@ -12,8 +12,9 @@ node {
 	stage('SCM Checkout') {
       git 'https://github.com/kcacademic/e2e-application.git'
 	}
-	/*
+	
 	stage('Dependency Installation') {
+	    /*
 		dir("angular-app") {
 	      bat(/npm install/)
 		}
@@ -35,11 +36,12 @@ node {
 		dir("spark-streaming-scala-app") {
 	      bat(/echo "There is nothing to do here."/)
 		}
+		*/
 		dir("python-keras-app") {
-	      bat(/echo "There is nothing to do here."/)
+	      bat(/${condaHome}\python -m pip install -r ./requirements.txt/)
 		}
 	}
-	*/
+	
 	stage('Unit Testing') {
 		/*
 		dir("angular-app") {
@@ -63,16 +65,15 @@ node {
 	      bat(/${mavenHome}\bin\mvn test/)
 		  bat(/${mavenHome}\bin\mvn jacoco:report/)
 		}
-		
 		dir("spark-streaming-scala-app") {
 	      bat(/${sbtHome}\bin\sbt test/)
 		}
 		*/
 		dir("python-keras-app") {
-		  bat(/set PYTHONPATH=./src/python/)
-		  //bat(/echo "%PYTHONPATH%"/)
-		  bat(/${condaHome}\python -m coverage run --source src\\python src\\test\\test.py/)
-		  bat(/echo "There is nothing to do here."/)
+          withEnv(['PYTHONPATH=./src/python']){
+		    bat(/${condaHome}\python -m coverage run --source src\\python src\\test\\test.py/)
+			bat(/${condaHome}\python -m coverage xml/)
+		  }
 		}
 	}
 	
@@ -96,11 +97,9 @@ node {
 		dir("spark-streaming-java-app") {
 	      bat(/${mavenHome}\bin\mvn -DskipTests clean compile package/)
 		}
-		
 		dir("spark-streaming-scala-app") {
 	      bat(/sbt assembly/)
 		}
-		
 		dir("python-keras-app") {
 	      bat(/echo "There is nothing to do here."/)
 		}

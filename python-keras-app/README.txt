@@ -1,5 +1,6 @@
 BUILD
 =====
+pip install -r ./requirements.txt
 set PYTHONPATH=./src/python
 python src/predict.py
 python -m unittest discover -s test
