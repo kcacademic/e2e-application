@@ -6,12 +6,13 @@ node {
 	  mavenHome = tool "M3"
 	  gradleHome = tool "Gradle"
 	  sbtHome = tool "SBT"
+	  condaHome = tool "CONDA"
 	}
 	
 	stage('SCM Checkout') {
       git 'https://github.com/kcacademic/e2e-application.git'
 	}
-	
+	/*
 	stage('Dependency Installation') {
 		dir("angular-app") {
 	      bat(/npm install/)
@@ -38,8 +39,9 @@ node {
 	      bat(/echo "There is nothing to do here."/)
 		}
 	}
-	
+	*/
 	stage('Unit Testing') {
+		/*
 		dir("angular-app") {
 	      bat(/npm test/)
 		}
@@ -61,16 +63,17 @@ node {
 	      bat(/${mavenHome}\bin\mvn test/)
 		  bat(/${mavenHome}\bin\mvn jacoco:report/)
 		}
-		/*
+		
 		dir("spark-streaming-scala-app") {
 	      bat(/${sbtHome}\bin\sbt test/)
 		}
 		*/
 		dir("python-keras-app") {
-	      bat(/echo "There is nothing to do here."/)
+		  bat(/set PYTHONPATH=./)
+	      bat(/${condaHome}\python -m coverage run --source src test/test.py/)
 		}
 	}
-	
+	/*
 	stage('Application Build') {
 		dir("angular-app") {
 	      bat(/npm run build/)
@@ -105,7 +108,7 @@ node {
 	      bat(/"${scannerHome}\bin\sonar-scanner"/)
 		}
 	}
-	
+	*/
 	/*
 	stage('Docker Build') {
 		dir("angular-app") {
