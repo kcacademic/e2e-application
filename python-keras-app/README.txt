@@ -1,6 +1,6 @@
 BUILD
 =====
-set PYTHONPATH=.
+set PYTHONPATH=./src/python
 python src/predict.py
 python -m unittest discover -s test
 coverage run --source src test/test.py
