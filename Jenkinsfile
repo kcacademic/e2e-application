@@ -100,7 +100,7 @@ node {
 		}
 		*/
 		dir("python-keras-app") {
-	      bat(/echo "There is nothing to do here."/)
+	      bat(/${condaHome}\python -m compileall -f -l src/python src/test/)
 		}
 	}
 	
