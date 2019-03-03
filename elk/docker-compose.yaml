@@ -16,7 +16,8 @@ services:
         ports:
             - '25826:25826'
         volumes:
-            - $PWD/elk-config:/elk-config
-        command: logstash -f /elk-config/logstash.config
+            - ./config/logstash-docker.conf:/opt/config/logstash.conf
+            - ../java-cassandra-app/logs:/opt/logs
+        command: logstash -f /opt/config/logstash.conf
         depends_on:
             -  elasticsearch
