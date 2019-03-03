@@ -17,7 +17,7 @@ services:
             - '25826:25826'
         volumes:
             - ./config/logstash-docker.conf:/opt/config/logstash.conf
-            - ../java-cassandra-app/logs:/opt/logs
+            - ../../java-cassandra-app/logs:/opt/logs
         command: logstash -f /opt/config/logstash.conf
         depends_on:
             -  elasticsearch
