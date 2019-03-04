@@ -67,77 +67,88 @@ node {
 		}
 	}
 	
-	/*
 	stage('Unit Testing') {
-		dir("angular-app") {
-	      bat(/npm test/)
-		}
-		dir("node-mongo-app") {
-	      bat(/npm test/)
-		}
-		dir("react-redux-app") {
-	      bat(/npm test/)
-		}
-		dir("java-cassandra-app") {
-	      bat(/${mavenHome}\bin\mvn test/)
-		  bat(/${mavenHome}\bin\mvn jacoco:report/)
-		}
-		dir("kotlin-kafka-app") {
-	      bat(/${gradleHome}\bin\gradle test/)
-		  bat(/${gradleHome}\bin\gradle jacocoTestReport/)
-		}
-		dir("spark-streaming-java-app") {
-	      bat(/${mavenHome}\bin\mvn test/)
-		  bat(/${mavenHome}\bin\mvn jacoco:report/)
-		}
-		/*
-		dir("spark-streaming-scala-app") {
-	      bat(/${sbtHome}\bin\sbt test/)
-		}
-		*/
-		dir("python-keras-app") {
-          withEnv(['PYTHONPATH=./src/python']){
-		    bat(/${condaHome}\python -m coverage run --source src\\python src\\test\\test.py/)
-			bat(/${condaHome}\python -m coverage xml/)
-		  }
+		if(isUnix()) {
+		
+		} else {
+			dir("angular-app") {
+			  bat(/npm test/)
+			}
+			dir("node-mongo-app") {
+			  bat(/npm test/)
+			}
+			dir("react-redux-app") {
+			  bat(/npm test/)
+			}
+			dir("java-cassandra-app") {
+			  bat(/${mavenHome}\bin\mvn test/)
+			  bat(/${mavenHome}\bin\mvn jacoco:report/)
+			}
+			dir("kotlin-kafka-app") {
+			  bat(/${gradleHome}\bin\gradle test/)
+			  bat(/${gradleHome}\bin\gradle jacocoTestReport/)
+			}
+			dir("spark-streaming-java-app") {
+			  bat(/${mavenHome}\bin\mvn test/)
+			  bat(/${mavenHome}\bin\mvn jacoco:report/)
+			}
+			/*
+			dir("spark-streaming-scala-app") {
+			  bat(/${sbtHome}\bin\sbt test/)
+			}
+			*/
+			dir("python-keras-app") {
+			  withEnv(['PYTHONPATH=./src/python']){
+				bat(/${condaHome}\python -m coverage run --source src\\python src\\test\\test.py/)
+				bat(/${condaHome}\python -m coverage xml/)
+			  }
+			}
 		}
 	}
 	
 	stage('Application Build') {
-		dir("angular-app") {
-	      bat(/npm run build/)
-		}
-		dir("node-mongo-app") {
-		  bat(/echo "There is nothing to do here."/)
-		}
-		dir("react-redux-app") {
-	      bat(/npm run build/)
-		}
-		dir("java-cassandra-app") {
-		  bat(/${mavenHome}\bin\mvn -DskipTests clean compile package/)
-		}
-		dir("kotlin-kafka-app") {
-	      bat(/${gradleHome}\bin\gradle clean build -x test/)
-		}
-		dir("spark-streaming-java-app") {
-	      bat(/${mavenHome}\bin\mvn -DskipTests clean compile package/)
-		}
-		/*
-		dir("spark-streaming-scala-app") {
-	      bat(/${sbtHome}\bin\sbt assembly/)
-		}
-		*/
-		dir("python-keras-app") {
-	      bat(/${condaHome}\python -m compileall -f -l src/python src/test/)
+		if(isUnix()) {
+		
+		} else {
+			dir("angular-app") {
+			  bat(/npm run build/)
+			}
+			dir("node-mongo-app") {
+			  bat(/echo "There is nothing to do here."/)
+			}
+			dir("react-redux-app") {
+			  bat(/npm run build/)
+			}
+			dir("java-cassandra-app") {
+			  bat(/${mavenHome}\bin\mvn -DskipTests clean compile package/)
+			}
+			dir("kotlin-kafka-app") {
+			  bat(/${gradleHome}\bin\gradle clean build -x test/)
+			}
+			dir("spark-streaming-java-app") {
+			  bat(/${mavenHome}\bin\mvn -DskipTests clean compile package/)
+			}
+			/*
+			dir("spark-streaming-scala-app") {
+			  bat(/${sbtHome}\bin\sbt assembly/)
+			}
+			*/
+			dir("python-keras-app") {
+			  bat(/${condaHome}\python -m compileall -f -l src/python src/test/)
+			}
 		}
 	}
 	
 	stage('Sonar Scanner') {
-		withSonarQubeEnv('SonarQube') {
-	      bat(/"${scannerHome}\bin\sonar-scanner"/)
+	    if(isUnix()) {
+		
+		} else {
+			withSonarQubeEnv('SonarQube') {
+			  bat(/"${scannerHome}\bin\sonar-scanner"/)
+			}
 		}
 	}
-	*/
+	
 	
 	/*
 	stage('Docker Build') {
