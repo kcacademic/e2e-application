@@ -28,13 +28,13 @@ node {
 			  //sh(${mavenHome}\bin\mvn dependency:resolve)
 			}
 			dir("kotlin-kafka-app") {
-			  sh(echo "There is nothing to do here.")
+			  //sh(echo There is nothing to do here.)
 			}
 			dir("spark-streaming-java-app") {
 			  //sh(${mavenHome}\bin\mvn dependency:resolve)
 			}
 			dir("spark-streaming-scala-app") {
-			  sh(echo "There is nothing to do here.")
+			  //sh(echo "There is nothing to do here.")
 			}
 			dir("python-keras-app") {
 			  //sh(${condaHome}\python -m pip install -r requirements.txt)
