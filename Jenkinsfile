@@ -16,28 +16,28 @@ node {
 	stage('Dependency Installation') {
 		if(isUnix()) {
 			dir("angular-app") {
-			  sh(npm install)
+			  //sh(npm install)
 			}
 			dir("node-mongo-app") {
-			  sh(npm install)
+			  //sh(npm install)
 			}
 			dir("react-redux-app") {
-			  sh(npm install)
+			  //sh(npm install)
 			}
 			dir("java-cassandra-app") {
-			  sh(${mavenHome}\bin\mvn dependency:resolve)
+			  //sh(${mavenHome}\bin\mvn dependency:resolve)
 			}
 			dir("kotlin-kafka-app") {
 			  sh(echo "There is nothing to do here.")
 			}
 			dir("spark-streaming-java-app") {
-			  sh(${mavenHome}\bin\mvn dependency:resolve)
+			  //sh(${mavenHome}\bin\mvn dependency:resolve)
 			}
 			dir("spark-streaming-scala-app") {
 			  sh(echo "There is nothing to do here.")
 			}
 			dir("python-keras-app") {
-			  sh(${condaHome}\python -m pip install -r requirements.txt)
+			  //sh(${condaHome}\python -m pip install -r requirements.txt)
 			}
 		} else {
 			dir("angular-app") {
