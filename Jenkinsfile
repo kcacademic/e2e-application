@@ -111,7 +111,7 @@ node {
 			}
 			*/
 			dir("python-keras-app") {
-			  bat(/${condaHome}\python -m compileall -f -l src/python src/test/)
+			  bat(/${condaHome}\python -m compileall -f -l src\python src\test/)
 			}
 		}
 	}
