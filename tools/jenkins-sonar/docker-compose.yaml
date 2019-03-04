@@ -1,0 +1,29 @@
+version: '3.2'
+services:
+  sonarqube:
+    image: sonarqube:lts
+    ports:
+      - 9000:9000
+      - 9092:9092
+    volumes:
+      - conf-sonar:/opt/sonarqube/conf
+      - data-sonar:/opt/sonarqube/data
+      - extensions-sonar:/opt/sonarqube/extensions
+  jenkins:
+    image: jenkins/jenkins:lts
+    privileged: true
+    user: root
+    ports:
+      - 8080:8080
+      - 50000:50000
+    volumes:
+      - data-jenkins:/var/jenkins_home
+    depends_on:
+      - sonarqube
+      
+volumes:
+  data-jenkins:
+  data-sonar:
+  conf-sonar:
+  extensions-sonar:
+  

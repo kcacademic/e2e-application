@@ -14,32 +14,60 @@ node {
 	}
 	
 	stage('Dependency Installation') {
-		dir("angular-app") {
-	      bat(/npm install/)
-		}
-		dir("node-mongo-app") {
-	      bat(/npm install/)
-		}
-		dir("react-redux-app") {
-	      bat(/npm install/)
-		}
-		dir("java-cassandra-app") {
-	      bat(/${mavenHome}\bin\mvn dependency:resolve/)
-		}
-		dir("kotlin-kafka-app") {
-	      bat(/echo "There is nothing to do here."/)
-		}
-		dir("spark-streaming-java-app") {
-	      bat(/${mavenHome}\bin\mvn dependency:resolve/)
-		}
-		dir("spark-streaming-scala-app") {
-	      bat(/echo "There is nothing to do here."/)
-		}
-		dir("python-keras-app") {
-	      bat(/${condaHome}\python -m pip install -r requirements.txt/)
+		if(isUnix()) {
+			dir("angular-app") {
+			  sh(npm install)
+			}
+			dir("node-mongo-app") {
+			  sh(npm install)
+			}
+			dir("react-redux-app") {
+			  sh(npm install)
+			}
+			dir("java-cassandra-app") {
+			  sh(${mavenHome}\bin\mvn dependency:resolve)
+			}
+			dir("kotlin-kafka-app") {
+			  sh(echo "There is nothing to do here.")
+			}
+			dir("spark-streaming-java-app") {
+			  sh(${mavenHome}\bin\mvn dependency:resolve)
+			}
+			dir("spark-streaming-scala-app") {
+			  sh(echo "There is nothing to do here.")
+			}
+			dir("python-keras-app") {
+			  sh(${condaHome}\python -m pip install -r requirements.txt)
+			}
+		} else {
+			dir("angular-app") {
+			  bat(/npm install/)
+			}
+			dir("node-mongo-app") {
+			  bat(/npm install/)
+			}
+			dir("react-redux-app") {
+			  bat(/npm install/)
+			}
+			dir("java-cassandra-app") {
+			  bat(/${mavenHome}\bin\mvn dependency:resolve/)
+			}
+			dir("kotlin-kafka-app") {
+			  bat(/echo "There is nothing to do here."/)
+			}
+			dir("spark-streaming-java-app") {
+			  bat(/${mavenHome}\bin\mvn dependency:resolve/)
+			}
+			dir("spark-streaming-scala-app") {
+			  bat(/echo "There is nothing to do here."/)
+			}
+			dir("python-keras-app") {
+			  bat(/${condaHome}\python -m pip install -r requirements.txt/)
+			}
 		}
 	}
 	
+	/*
 	stage('Unit Testing') {
 		dir("angular-app") {
 	      bat(/npm test/)
@@ -109,6 +137,7 @@ node {
 	      bat(/"${scannerHome}\bin\sonar-scanner"/)
 		}
 	}
+	*/
 	
 	/*
 	stage('Docker Build') {
