@@ -5,7 +5,8 @@
   "scripts": {
     "build": "webpack --mode=development",
     "start": "webpack-dev-server --mode=development",
-    "test": "jest -u --coverage"
+    "test": "jest -u --coverage",
+    "e2e": "node_modules/.bin/cucumber-js"
   },
   "dependencies": {
     "axios": "0.18.0",
@@ -41,9 +42,13 @@
     "babel-loader": "8.0.5",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
     "babel-jest": "^24.1.0",
+    "chai": "^4.2.0",
+    "chromedriver": "^2.46.0",
+    "cucumber": "^5.1.0",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^24.1.0",
     "react-test-renderer": "^16.8.1",
+    "selenium-webdriver": "^4.0.0-alpha.1",
     "terser": "^3.14.1",
     "webpack": "4.4.1",
     "webpack-cli": "2.0.13",

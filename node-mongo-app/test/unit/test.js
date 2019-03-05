@@ -3,8 +3,8 @@ var sinon = require('sinon');
 var expect = require('chai').expect;
 var should = require('chai').should();
 
-var wordController = require('../src/wordController');
-var wordModel = require('../src/wordModel');
+var wordController = require('../../src/wordController');
+var wordModel = require('../../src/wordModel');
 
 describe('Basic Tests for Node-Mongo App', function () {
 
