@@ -30,21 +30,20 @@ app.use(function(req, res, next) {
 app.use(bodyParser.urlencoded({
    extended: true
 }));
-
 app.use(bodyParser.json());
 
 // Connect to Mongoose and set connection variable
-// mongoose.connect('mongodb://host.docker.internal/vocabulary');
 mongoose.connect(mongodb);
-
 var db = mongoose.connection;
 
 // Send message for default URL
-//app.get('/', (req, res) => res.send('Hello World with Express and Nodemon'));
 app.use('/',apiRoutes)
 
 // Use Api routes in the App
 app.use('/api', apiRoutes)
+
+// Use Api routes in the App
+app.use('/metrics', apiRoutes)
 
 // Launch app to listen to specified port
 module.exports = app.listen(port, function () {

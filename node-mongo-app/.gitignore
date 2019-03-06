@@ -6,6 +6,7 @@
 /out-tsc
 /.nyc_output
 /features/reports
+/logs
 
 # dependencies
 /node_modules

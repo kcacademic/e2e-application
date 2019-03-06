@@ -7,3 +7,7 @@ scrape_configs:
     metrics_path: '/actuator/prometheus'
     static_configs:
     - targets: ['localhost:8085']
+  - job_name: 'node-app'
+    metrics_path: '/metrics'
+    static_configs:
+    - targets: ['localhost:8085']
