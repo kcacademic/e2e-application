@@ -47,6 +47,6 @@ app.use('/',apiRoutes)
 app.use('/api', apiRoutes)
 
 // Launch app to listen to specified port
-app.listen(port, function () {
+module.exports = app.listen(port, function () {
      console.log("Running App on port " + port);
 });

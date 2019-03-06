@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "test": "nyc --reporter=lcov mocha",
-    "start": "node src/index"
+    "start": "node src/index",
+    "e2e": "node_modules/.bin/cucumber-js --exit -f json:features/reports/report.json"
   },
   "author": "kchandrakant@gmail.com",
   "license": "MIT",
@@ -16,6 +17,9 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "chai-json": "^1.0.0",
+    "cucumber": "^5.1.0",
     "mocha": "^5.2.0",
     "nyc": "^13.1.0",
     "sinon": "^7.2.3"
