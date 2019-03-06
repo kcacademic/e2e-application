@@ -1,6 +1,9 @@
 BUILD
 =====
+npm build
+npm test
 npm start
+npm run e2e
 
 CONTAINERIZATION
 ================

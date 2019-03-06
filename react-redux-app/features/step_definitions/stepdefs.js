@@ -1,5 +1,6 @@
 const { Given, When, Then } = require('cucumber')
 const { Builder, Capabilities} = require('selenium-webdriver')
+const chrome = require('chromedriver')
 const expect  = require('chai').expect
 var {setDefaultTimeout} = require('cucumber');
 

@@ -6,7 +6,7 @@
     "build": "webpack --mode=development",
     "start": "webpack-dev-server --mode=development",
     "test": "jest -u --coverage",
-    "e2e": "node_modules/.bin/cucumber-js"
+    "e2e": "node_modules/.bin/cucumber-js -f json:features/reports/report.json"
   },
   "dependencies": {
     "axios": "0.18.0",

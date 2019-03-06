@@ -1,6 +1,7 @@
 BUILD
 =====
-npm build
+npm test
+npm start
 
 CONTAINERIZATION
 ================
