@@ -1,3 +1,4 @@
 /config-repo
 /config-server
 /service-registry
+/hystrix-dashboard
