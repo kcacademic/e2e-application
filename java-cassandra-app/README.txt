@@ -8,6 +8,7 @@ mvn jacoco:report
 Start
 =====
 mvn spring-boot:run
+mvn spring-boot:run -Dspring-boot.run.profiles=prod
 
 Testing (Maven)
 ===============
