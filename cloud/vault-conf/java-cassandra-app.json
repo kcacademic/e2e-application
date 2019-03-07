@@ -1,0 +1,4 @@
+{ 
+  "spring.data.cassandra.username":"cassandra",
+  "spring.data.cassandra.password":"cassandra"
+}
