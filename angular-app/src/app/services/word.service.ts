@@ -7,21 +7,25 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class WordService {
 	
-  private endpoint = environment.apiUrl;
+  private endpoint = environment.apiUrl
 
   constructor(private http: HttpClient) { 
   }
   
 
   private extractData(res: Response) {
-    let body = res;
-    return body || { };
+    let body = res
+    return body || { }
   }
  
-  get(): Observable<any> {  
-	  console.log(this.http.get(this.endpoint + `/api/words`));
-    return this.http.get(this.endpoint + `/api/words`)
-      .pipe(map(this.extractData));
+  get(): Observable<any> { 
+    let headers = new HttpHeaders()
+    headers = headers.append("Authorization", "Basic " + btoa("admin:admin"))
+    headers = headers.append("Content-Type", "application/x-www-form-urlencoded")
+
+    let response = this.http.get(this.endpoint + `/api/words`, {headers: headers}) 
+    console.log(response)
+    return response.pipe(map(this.extractData))
   }
 
 }
