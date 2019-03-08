@@ -39,7 +39,7 @@ public class WordControllerUnitTest {
 	public void getAllWords() throws Exception {
 
 		Word word = new Word();
-		word.setWord("Kumar");
+		word.setWord("Kumar Chandrakant");
 		word.setCount(25);
 		List<Word> allWords = singletonList(word);
 

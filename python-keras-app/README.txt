@@ -3,7 +3,7 @@ BUILD
 pip install -r ./requirements.txt
 python -m compileall -f -l src/python src/test
 set PYTHONPATH=./src/python
-python src/predict.py
+python src/python/predict.py
 python -m unittest discover -s test
 coverage run --source src test/test.py
 coverage xml

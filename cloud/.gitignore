@@ -2,3 +2,4 @@
 /config-server
 /service-registry
 /hystrix-dashboard
+/zipkin-server
