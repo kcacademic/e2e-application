@@ -5,6 +5,7 @@ import static org.apache.storm.cassandra.DynamicStatementBuilder.fields;
 import static org.apache.storm.cassandra.DynamicStatementBuilder.simpleQuery;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.storm.Config;
@@ -20,125 +21,147 @@ import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.OutputFieldsDeclarer;
 import org.apache.storm.topology.TopologyBuilder;
 import org.apache.storm.topology.base.BaseRichBolt;
+import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Tuple;
+import org.apache.storm.tuple.Values;
 
 @SuppressWarnings("serial")
-public class WordDataStream implements Serializable{
+public class WordDataStream implements Serializable {
 
 	public static MyProperties props = new MyProperties();
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws InterruptedException {
 		
+		Config config = new Config();
+
 		WordDataStream wordDataStream = new WordDataStream();
-		
+
 		SplitSentenceBolt splitSentenceBolt = wordDataStream.new SplitSentenceBolt();
-		
 		WordCountBolt wordCountBolt = wordDataStream.new WordCountBolt();
-		
 		ReportBolt reportBolt = wordDataStream.new ReportBolt();
+		
+		config.put("cassandra.nodes", "localhost");
+		config.put("cassandra.port", "9042");
+		config.put("cassandra.keyspace", "vocabulary");
+		config.put("cassandra.username", "cassandra");
+		config.put("cassandra.password", "cassandra");
 
 		CassandraWriterBolt cassandraBolt = new CassandraWriterBolt(
-				async(simpleQuery("INSERT INTO album (title,year,performer,genre,tracks) VALUES (?, ?, ?, ?, ?);")
-						.with(fields("title", "year", "performer", "genre", "tracks"))));
-		
+				async(simpleQuery("INSERT INTO words (word,count) VALUES (?, ?);")
+						.with(fields("word", "count"))));
+
 		String url = "mongodb://127.0.0.1:27017/test";
 		String collectionName = "wordcount";
-		MongoMapper mapper = new SimpleMongoMapper()
-		        .withFields("word", "count");
+		MongoMapper mapper = new SimpleMongoMapper().withFields("word", "count");
 		MongoInsertBolt mongoBolt = new MongoInsertBolt(url, collectionName, mapper);
-		
-		KafkaSpoutConfig<String, String> spoutConf =  KafkaSpoutConfig
-				.builder("127.0.0.1:9092", "twitter").build();	
-		
+
+		KafkaSpoutConfig<String, String> spoutConf = KafkaSpoutConfig.builder("127.0.0.1:9092", "twitter").build();
+
 		final TopologyBuilder tp = new TopologyBuilder();
-		Config config = new Config();
+		
 		config.setNumWorkers(1);
-		
+
 		tp.setSpout("kafka_spout", new KafkaSpout<>(spoutConf), 1);
-		
-		//tp.setBolt("split_sentence_bolt", splitSentenceBolt);
-		//tp.setBolt("word_count_bolt", wordCountBolt);
-		//tp.setBolt("cassandra_bolt", cassandraBolt).shuffleGrouping("kafka_spout");
-		//tp.setBolt("mongo_bolt", mongoBolt).shuffleGrouping("kafka_spout");
-		
-		tp.setBolt("report_bolt", reportBolt).shuffleGrouping("kafka_spout");
+
+		tp.setBolt("split_sentence_bolt", splitSentenceBolt).shuffleGrouping("kafka_spout");
+		tp.setBolt("word_count_bolt", wordCountBolt).shuffleGrouping("split_sentence_bolt");
+		tp.setBolt("report_bolt", reportBolt).shuffleGrouping("word_count_bolt");
+		tp.setBolt("cassandra_bolt", cassandraBolt).shuffleGrouping("word_count_bolt");
+		// tp.setBolt("mongo_bolt", mongoBolt).shuffleGrouping("kafka_spout");
 		
 		LocalCluster cluster = new LocalCluster();
 		cluster.submitTopology("word-count-topology", config, tp.createTopology());
-		
-		//cluster.killTopology("word-count-topology");
-		//cluster.shutdown();
-		
+
+		// cluster.killTopology("word-count-topology");
+		// cluster.shutdown();
+
 	}
-	
-	public class SplitSentenceBolt extends BaseRichBolt{
+
+	public class SplitSentenceBolt extends BaseRichBolt {
+
+		private OutputCollector collector;
 
 		@SuppressWarnings("rawtypes")
 		@Override
 		public void prepare(Map stormConf, TopologyContext context, OutputCollector collector) {
-			// TODO Auto-generated method stub
-			
+
+			this.collector = collector;
 		}
 
 		@Override
 		public void execute(Tuple input) {
-			// TODO Auto-generated method stub
-			
+
+			System.out.println(input.getValues());
+			String sentence = input.getString(4);
+			String words[] = sentence.split(" ");
+			for (String w : words) {
+				collector.emit(new Values(w));
+			}
+
 		}
 
 		@Override
 		public void declareOutputFields(OutputFieldsDeclarer declarer) {
-			// TODO Auto-generated method stub
-			
+
+			declarer.declare(new Fields("word"));
 		}
 
 	}
-	
-	public class WordCountBolt extends BaseRichBolt{
+
+	public class WordCountBolt extends BaseRichBolt {
+
+		Map<String, Integer> counts;
+		private OutputCollector collector;
 
 		@SuppressWarnings("rawtypes")
 		@Override
 		public void prepare(Map stormConf, TopologyContext context, OutputCollector collector) {
-			// TODO Auto-generated method stub
-			
+
+			this.counts = new HashMap<String, Integer>();
+			this.collector = collector;
 		}
 
 		@Override
 		public void execute(Tuple input) {
-			// TODO Auto-generated method stub
-			
+
+			System.out.println(input.getValues());
+			String word = input.getString(0);
+			Integer count = counts.get(word);
+			if (count == null)
+				count = 0;
+			count++;
+			counts.put(word, count);
+			collector.emit(new Values(word, count));
 		}
 
 		@Override
 		public void declareOutputFields(OutputFieldsDeclarer declarer) {
-			// TODO Auto-generated method stub
-			
+
+			declarer.declare(new Fields("word", "count"));
 		}
 
 	}
-	
+
 	public class ReportBolt extends BaseRichBolt {
 
 		@SuppressWarnings("rawtypes")
 		@Override
 		public void prepare(Map stormConf, TopologyContext context, OutputCollector collector) {
-			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void execute(Tuple input) {
-			// TODO Auto-generated method stub
+			System.out.println("HI");
 			System.out.println(input.getValues());
 		}
 
 		@Override
 		public void declareOutputFields(OutputFieldsDeclarer declarer) {
-			// TODO Auto-generated method stub
-			
+
 		}
-		
+
 	}
 
 }
