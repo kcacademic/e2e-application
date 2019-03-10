@@ -1,0 +1,36 @@
+version: '3'
+services:
+  kafka:
+    image: spotify/kafka
+    ports:
+      - 2181:2181
+      - 9092:9092
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://0.0.0.0:9092'
+      
+  cassandra:
+    image: cassandra
+    ports:
+      - 9042:9042
+    volumes:
+      - data-cassandra:/var/lib/cassandra
+  
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    command: mongod --bind_ip 0.0.0.0
+    volumes:
+      - data-mongo:/data/db
+  
+  storm-app:
+    image: storm-streaming-java:1.0
+    depends_on:
+     - kafka
+     - cassandra
+     - mongo
+    command: ["jar", "app.jar", "com.sapient.learning.WordDataStream"]
+    
+volumes:
+  data-mongo:
+  data-cassandra:
