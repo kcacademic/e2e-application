@@ -41,22 +41,32 @@ public class WordDataStream implements Serializable {
 		WordCountBolt wordCountBolt = wordDataStream.new WordCountBolt();
 		ReportBolt reportBolt = wordDataStream.new ReportBolt();
 		
-		config.put("cassandra.nodes", "localhost");
-		config.put("cassandra.port", "9042");
-		config.put("cassandra.keyspace", "vocabulary");
+		config.put("cassandra.nodes", props.getValue("cassandra.server"));
+		//config.put("cassandra.port", "9042");
+		config.put("cassandra.keyspace", props.getValue("cassandra.keyspace"));
 		config.put("cassandra.username", "cassandra");
 		config.put("cassandra.password", "cassandra");
 
 		CassandraWriterBolt cassandraBolt = new CassandraWriterBolt(
-				async(simpleQuery("INSERT INTO words (word,count) VALUES (?, ?);")
-						.with(fields("word", "count"))));
+				async(simpleQuery(
+						"INSERT INTO " + 
+						props.getValue("cassandra.table") + 
+						" (word,count) VALUES (?, ?);")
+					.with(fields("word", "count"))));
 
-		String url = "mongodb://127.0.0.1:27017/test";
-		String collectionName = "wordcount";
+		String url = "mongodb://"
+				+ props.getValue("mongo.server")
+				+ "/" + props.getValue("mongo.database");
+		String collectionName = props.getValue("mongo.collection");
 		MongoMapper mapper = new SimpleMongoMapper().withFields("word", "count");
 		MongoInsertBolt mongoBolt = new MongoInsertBolt(url, collectionName, mapper);
 
-		KafkaSpoutConfig<String, String> spoutConf = KafkaSpoutConfig.builder("127.0.0.1:9092", "twitter").build();
+		KafkaSpoutConfig<String, String> spoutConf = KafkaSpoutConfig
+				.builder(props.getValue("kafka.server"), 
+						props.getValue("kafka.topic")
+						).build();
+		
+		System.out.println("Connecting to Kafka: " + props.getValue("kafka.server") + ":" + props.getValue("kafka.topic"));
 
 		final TopologyBuilder tp = new TopologyBuilder();
 		
@@ -68,7 +78,7 @@ public class WordDataStream implements Serializable {
 		tp.setBolt("word_count_bolt", wordCountBolt).shuffleGrouping("split_sentence_bolt");
 		tp.setBolt("report_bolt", reportBolt).shuffleGrouping("word_count_bolt");
 		tp.setBolt("cassandra_bolt", cassandraBolt).shuffleGrouping("word_count_bolt");
-		// tp.setBolt("mongo_bolt", mongoBolt).shuffleGrouping("kafka_spout");
+		tp.setBolt("mongo_bolt", mongoBolt).shuffleGrouping("word_count_bolt");
 		
 		LocalCluster cluster = new LocalCluster();
 		cluster.submitTopology("word-count-topology", config, tp.createTopology());
@@ -85,16 +95,13 @@ public class WordDataStream implements Serializable {
 		@SuppressWarnings("rawtypes")
 		@Override
 		public void prepare(Map stormConf, TopologyContext context, OutputCollector collector) {
-
 			this.collector = collector;
 		}
 
 		@Override
 		public void execute(Tuple input) {
-
-			System.out.println(input.getValues());
 			String sentence = input.getString(4);
-			String words[] = sentence.split(" ");
+			String words[] = Utility.cleanse(sentence);
 			for (String w : words) {
 				collector.emit(new Values(w));
 			}
@@ -103,7 +110,6 @@ public class WordDataStream implements Serializable {
 
 		@Override
 		public void declareOutputFields(OutputFieldsDeclarer declarer) {
-
 			declarer.declare(new Fields("word"));
 		}
 
@@ -117,15 +123,12 @@ public class WordDataStream implements Serializable {
 		@SuppressWarnings("rawtypes")
 		@Override
 		public void prepare(Map stormConf, TopologyContext context, OutputCollector collector) {
-
 			this.counts = new HashMap<String, Integer>();
 			this.collector = collector;
 		}
 
 		@Override
 		public void execute(Tuple input) {
-
-			System.out.println(input.getValues());
 			String word = input.getString(0);
 			Integer count = counts.get(word);
 			if (count == null)
@@ -137,7 +140,6 @@ public class WordDataStream implements Serializable {
 
 		@Override
 		public void declareOutputFields(OutputFieldsDeclarer declarer) {
-
 			declarer.declare(new Fields("word", "count"));
 		}
 
@@ -153,7 +155,6 @@ public class WordDataStream implements Serializable {
 
 		@Override
 		public void execute(Tuple input) {
-			System.out.println("HI");
 			System.out.println(input.getValues());
 		}
 

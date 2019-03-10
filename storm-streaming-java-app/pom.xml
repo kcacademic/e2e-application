@@ -30,13 +30,8 @@
 			<artifactId>storm-cassandra</artifactId>
 			<version>1.2.2</version>
 		</dependency>
-		<!-- 
-		<dependency>
-    		<groupId>com.hmsonline</groupId>
-    		<artifactId>storm-cassandra</artifactId>
-    		<version>0.3.0</version>
-		</dependency>
-		-->
+		<!-- <dependency> <groupId>com.hmsonline</groupId> <artifactId>storm-cassandra</artifactId> 
+			<version>0.3.0</version> </dependency> -->
 		<dependency>
 			<groupId>com.datastax.cassandra</groupId>
 			<artifactId>cassandra-driver-core</artifactId>
@@ -92,6 +87,11 @@
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
+					<archive>
+						<manifest>
+							<mainClass>com.sapient.learning.WordDataStream</mainClass>
+						</manifest>
+					</archive>
 				</configuration>
 			</plugin>
 			<plugin>

@@ -68,6 +68,8 @@ public class WordDataStream {
 		sparkConf.setMaster("local[2]");
 		sparkConf.setAppName("WordCountingAppWithCheckpoint");
 		sparkConf.setIfMissing("spark.cassandra.connection.host", props.getValue("cassandra.server"));
+		sparkConf.setIfMissing("spark.cassandra.auth.username", props.getValue("cassandra.username"));         
+		sparkConf.setIfMissing("spark.cassandra.auth.password", props.getValue("cassandra.password"));
 		sparkConf.setIfMissing("spark.mongodb.output.uri", 
 				"mongodb://"
 						+ props.getValue("mongo.server")
