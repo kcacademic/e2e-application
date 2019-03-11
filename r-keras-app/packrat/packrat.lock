@@ -1,0 +1,73 @@
+PackratFormat: 1.4
+PackratVersion: 0.5.0
+RVersion: 3.5.0
+Repos: CRAN=https://cran.ma.imperial.ac.uk
+
+Package: BH
+Source: CRAN
+Version: 1.69.0-1
+Hash: 15f597ed227897f4f793b6161260f4b9
+
+Package: R6
+Source: CRAN
+Version: 2.4.0
+Hash: 948a547c484e5bea15eee76cc53cce3f
+
+Package: Rcpp
+Source: CRAN
+Version: 1.0.0
+Hash: c7273c0f0bc9f5e41f4c52a8cf571f0f
+
+Package: crayon
+Source: CRAN
+Version: 1.3.4
+Hash: ff2840dd9b0d563fc80377a5a45510cd
+
+Package: httpuv
+Source: CRAN
+Version: 1.4.5.1
+Hash: d9e43248a4355da57d5e29260e962c95
+Requires: BH, Rcpp, later, promises
+
+Package: jsonlite
+Source: CRAN
+Version: 1.6
+Hash: 5f969e213e966135393e3e304abf3f49
+
+Package: later
+Source: CRAN
+Version: 0.8.0
+Hash: 6628995e683466b279077e796a4f0a1c
+Requires: BH, Rcpp, rlang
+
+Package: magrittr
+Source: CRAN
+Version: 1.5
+Hash: bdc4d48c3135e8f3b399536ddf160df4
+
+Package: packrat
+Source: CRAN
+Version: 0.5.0
+Hash: 498643e765d1442ba7b1160a1df3abf9
+
+Package: plumber
+Source: CRAN
+Version: 0.4.6
+Hash: 56b7230d3ec9bfe86c17b83af6a9b011
+Requires: R6, crayon, httpuv, jsonlite, stringi
+
+Package: promises
+Source: CRAN
+Version: 1.0.1
+Hash: 9bd4f07515f0bb5e649fa9a91a387ec9
+Requires: R6, Rcpp, later, magrittr, rlang
+
+Package: rlang
+Source: CRAN
+Version: 0.3.1
+Hash: 1176a91e0c23d4fc8f48bc5704a6f826
+
+Package: stringi
+Source: CRAN
+Version: 1.3.1
+Hash: 2618ed9608445399e7c431b0e80bfbfd
