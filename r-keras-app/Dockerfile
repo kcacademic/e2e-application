@@ -1,7 +1,11 @@
-FROM rocker/r-ver:3.4.4
+FROM rocker/r-ver:3.5.0
 
-COPY . /opt/app
+WORKDIR /opt/app
 
-RUN r packrat::restore()
+RUN r -e "options(repos = \
+  list(CRAN = 'http://mran.revolutionanalytics.com/snapshot/2019-03-12')); \
+  install.packages('plumber')"
+  
+COPY ./src /opt/app/src
 
-CMD rscript src/app.R
+CMD r -e "source('src/app.R')"

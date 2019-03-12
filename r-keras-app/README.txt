@@ -8,8 +8,8 @@ packrat::clean()
 
 Install Packages
 ================
-library("packrat")
-library("plumber")
+install.packages("packrat")
+install.packages("plumber")
 
 Run App
 =======
@@ -23,4 +23,4 @@ docker build -t r-keras:1.0 .
 
 docker stop r-keras
 docker rm r-keras
-docker run --rm --name=r_keras -p 5000:5000 r-keras:1.0
+docker run --rm --name=r_keras -p 8000:8000 r-keras:1.0

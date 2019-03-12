@@ -2,5 +2,5 @@
 
 library(plumber)
 
-r <- plumb("src/func.R")$run(port=8000)
+r <- plumb("src/func.R")
 r$run(port=8000)
