@@ -28,6 +28,11 @@ object WordDataStream {
     sparkConf.setIfMissing("spark.master", "local[2]")
     sparkConf.setIfMissing("spark.cassandra.connection.host", 
         MyProperties.getValue("cassandra.server"))
+	sparkConf.setIfMissing("spark.cassandra.auth.username", 
+		MyProperties.getValue("cassandra.username"));         
+	sparkConf.setIfMissing("spark.cassandra.auth.password", 
+		MyProperties.getValue("cassandra.password"));
+		
     sparkConf.setIfMissing("spark.mongodb.output.uri", 
         "mongodb://" + MyProperties.getValue("mongo.server") +
         "/" + MyProperties.getValue("mongo.database") +

@@ -12,12 +12,17 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
     "express": "^4.16.4",
+    "express-basic-auth": "^1.1.6",
+    "hystrixjs": "^0.2.0",
     "install": "^0.12.2",
     "log4js": "^4.0.2",
     "mongoose": "^5.4.4",
     "npm": "^6.8.0",
-    "prom-client": "^11.2.1"
+    "prom-client": "^11.2.1",
+    "request": "^2.88.0",
+    "rxjs": "^5.0.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",

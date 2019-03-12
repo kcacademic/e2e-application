@@ -2,39 +2,40 @@
 let express = require('express')
 
 // Initialize the app
-let app = express();
+let app = express()
 
 // Import Body parser
-let bodyParser = require('body-parser');
+let bodyParser = require('body-parser')
 
-// Import Mongoose
-let mongoose = require('mongoose');
+// Import cors
+var cors = require('cors')
+
+// Import basic-auth
+let basicAuth = require('express-basic-auth')
 
 // Import routes
 let apiRoutes = require("./api-routes")
 
-// Setup server port
-var port = process.env.PORT || 8085;
-
-// Setup mongodb URL
-var mongodb = process.env.MONGODB || 'mongodb://localhost/vocabulary';
-
 // Allow CORS
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+//app.use(function(req, res, next) {
+//  res.header("Access-Control-Allow-Origin", "*")
+//  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+//  next()
+//})
+
+app.use(cors())
 
 // Configure bodyparser to handle post requests
 app.use(bodyParser.urlencoded({
    extended: true
-}));
-app.use(bodyParser.json());
+}))
+app.use(bodyParser.json())
 
-// Connect to Mongoose and set connection variable
-mongoose.connect(mongodb);
-var db = mongoose.connection;
+// Use basic HTTP auth to secure the api
+app.use(basicAuth({
+  users: { 'admin': 'password' },
+  challenge: true
+}))
 
 // Send message for default URL
 app.use('/',apiRoutes)
@@ -45,7 +46,11 @@ app.use('/api', apiRoutes)
 // Use Api routes in the App
 app.use('/metrics', apiRoutes)
 
+// Use Api routes in the App
+app.use('/hystrix.stream', apiRoutes)
+
 // Launch app to listen to specified port
+var port = process.env.PORT || 8085;
 module.exports = app.listen(port, function () {
-     console.log("Running App on port " + port);
-});
+     console.log("Running App on port " + port)
+})

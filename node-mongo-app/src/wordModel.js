@@ -1,5 +1,9 @@
 // Import mongoose
-var mongoose = require('mongoose');
+var mongoose = require('mongoose')
+
+// Setup and connect mongodb
+var mongodb = process.env.MONGODB || 'mongodb://localhost/vocabulary'
+mongoose.connect(mongodb)
 
 // Setup schema
 var wordSchema = mongoose.Schema({
@@ -11,7 +15,7 @@ var wordSchema = mongoose.Schema({
         type: Number,
         required: true
     }
-}, { collection: 'words' });
+}, { collection: 'words' })
 
 // Export Word model
 var wordModel = module.exports = mongoose.model('word', wordSchema);
@@ -20,6 +24,5 @@ var wordModel = module.exports = mongoose.model('word', wordSchema);
 var mysort = { count: -1 };
 module.exports.get = function (callback, limit) {
     console.log(limit);
-    wordModel.find(callback).sort(mysort).limit(limit);
-    //wordModel.find(callback)
+    wordModel.find(callback).sort(mysort).limit(limit)
 }

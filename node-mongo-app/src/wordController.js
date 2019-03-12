@@ -1,5 +1,9 @@
+var CommandsBuilder = require('./predictModel')
+
 // Import contact model
 var wordModel = require('./wordModel')
+
+
 
 // Import and define logger
 var log4js = require('log4js')
@@ -17,7 +21,8 @@ exports.index = function (req, res) {
             });
         }
         logger.debug(words)
-		console.log(words)
+        console.log(words)
+        CommandsBuilder.createMyCommand().execute().then((e)=>{console.log(e)})
         res.json(
             words
         );
