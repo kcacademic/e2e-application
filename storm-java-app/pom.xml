@@ -4,10 +4,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.sapient.learning</groupId>
-	<artifactId>storm-streaming-app</artifactId>
+	<artifactId>storm-java-app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>storm-streaming-app</name>
-	<description>Demo project for Strom Streaming with Kafka</description>
+	<name>storm-java-app</name>
+	<description>Demo project for Storm Streaming with Kafka</description>
 	<dependencies>
 
 		<dependency>
