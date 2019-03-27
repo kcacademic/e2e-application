@@ -4,6 +4,7 @@
 /dist
 /tmp
 /logs
+*.exe
 
 # dependencies
 /node_modules
