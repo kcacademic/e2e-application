@@ -12,9 +12,9 @@ docker images
 docker rmi storm-java:1.0
 docker build -t storm-java:1.0 .
 
-docker stop storm-java
-docker rm storm-java
-docker run --rm --name=storm-java storm-java:1.0
+docker stop storm_java
+docker rm storm_java
+docker run --rm --name=storm_java storm-java:1.0
 
 STORM SUBMIT
 ============
