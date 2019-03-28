@@ -1,8 +1,13 @@
 BUILD
 =====
-go get github.com/gorilla/mux
-go get gopkg.in/mgo.v2
+SET GOPATH=C:\Users\kumchand0\Apps\e2e-application\go-mongo-app
+cd src\words
+dep init
+dep ensure
 
+go build words
+go test words
+go install words
 
 CONTAINERIZATION
 ================

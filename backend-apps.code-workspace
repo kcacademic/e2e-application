@@ -1,0 +1,10 @@
+{
+	"folders": [
+		{
+			"path": "go-mongo-app"
+		},
+		{
+			"path": "node-mongo-app"
+		}
+	]
+}

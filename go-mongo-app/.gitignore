@@ -5,6 +5,8 @@
 /tmp
 /logs
 *.exe
+/pkg
+/src/words/vendor
 
 # dependencies
 /node_modules

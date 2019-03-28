@@ -4,9 +4,6 @@
 			"path": "react-redux-app"
 		},
 		{
-			"path": "node-mongo-app"
-		},
-		{
 			"path": "angular-app"
 		}
 	],
