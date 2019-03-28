@@ -30,7 +30,6 @@ public class WordDataStream implements Serializable {
 
 	public static MyProperties props = new MyProperties();
 
-	@SuppressWarnings("unused")
 	public static void main(String[] args) throws InterruptedException {
 		
 		Config config = new Config();

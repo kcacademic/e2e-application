@@ -1,5 +1,9 @@
 BUILD
 =====
+lein run
+lein test
+lein uberjar
+
 
 CONTAINERIZATION
 ================
