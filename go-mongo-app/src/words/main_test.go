@@ -2,8 +2,9 @@ package main
 
 import "testing"
 
-func TestDemo(t *testing.T) {
-    if 1 != 1 {
-        t.Errorf("Hi")
+func TestHello(t *testing.T) {
+    want := "Hello, world."
+    if got := Hello(); got != want {
+        t.Errorf("Hello() = %q, want %q", got, want)
     }
 }

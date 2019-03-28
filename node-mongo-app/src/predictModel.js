@@ -1,14 +1,12 @@
 var commandFactory = require("hystrixjs").commandFactory
 
 module.exports =    class CommandsBuilder {
-
     static createMyCommand(){
         return commandFactory.getOrCreate("my-command-name")
             .run(runFn)
             .fallbackTo(fallbackFn)
             .build()
     }
-
 };
 
 var request = require("request");

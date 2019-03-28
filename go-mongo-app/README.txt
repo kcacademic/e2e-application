@@ -6,7 +6,8 @@ dep init
 dep ensure
 
 go build words
-go test words
+go test words -coverprofile=coverage.out
+go tool cover -html=coverage.out
 go install words
 
 CONTAINERIZATION
@@ -17,4 +18,4 @@ docker build -t go-mongo:1.0 .
 
 docker stop go_mongo
 docker rm go_mongo
-docker run --name=go_mongo -p 8085:8085 go-mongo:1.0
+docker run --rm --name=go_mongo -p 8085:8085 go-mongo:1.0

@@ -17,12 +17,6 @@ let basicAuth = require('express-basic-auth')
 let apiRoutes = require("./api-routes")
 
 // Allow CORS
-//app.use(function(req, res, next) {
-//  res.header("Access-Control-Allow-Origin", "*")
-//  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
-//  next()
-//})
-
 app.use(cors())
 
 // Configure bodyparser to handle post requests

@@ -8,11 +8,13 @@ import (
 	"gopkg.in/mgo.v2"
 )
 
+// Word Data structure for word
 type Word struct {
     Word string
     Count  int
 }
 
+// GetWords Function to fetch words from MongoDB
 func GetWords(w http.ResponseWriter, r *http.Request) {
 
 	Host := []string{"127.0.0.1:27017"}
@@ -27,13 +29,20 @@ func GetWords(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(words)
 }
 
-func main() {
-    router := mux.NewRouter()
-    router.HandleFunc("/api/words", GetWords).Methods("GET")
-    log.Fatal(http.ListenAndServe(":8085", router))
+// GetTest A test function
+func GetTest(w http.ResponseWriter, r *http.Request) {
+    json.NewEncoder(w).Encode("Hello, world.")
 }
 
+// Hello Another test function
+func Hello() string {
+    return "Hello, world."
+}
 
-
-
-
+// The main function
+func main() {
+    router := mux.NewRouter()
+	router.HandleFunc("/api/words", GetWords).Methods("GET")
+	router.HandleFunc("/", GetTest).Methods("GET")
+    log.Fatal(http.ListenAndServe(":8085", router))
+}

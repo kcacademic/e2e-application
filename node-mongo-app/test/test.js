@@ -16,8 +16,6 @@ describe('Basic Tests for Node-Mongo App', function () {
     });
 
     beforeEach(function() {
-        var sort = { sort: sinon.stub().callsArgWith(0, new Error('error'))  };
-        var limit = { limit: sinon.stub().callsArg(0) };
         sinon.stub(wordModel, 'find')
             .returns({sort: sinon.stub().returnsThis(), limit: sinon.stub().returns()});
     });
