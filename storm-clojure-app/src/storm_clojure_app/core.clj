@@ -1,8 +1,27 @@
 (ns storm-clojure-app.core
   (:import  [backtype.storm StormSubmitter LocalCluster]
-            [storm.kafka KafkaConfig KafkaConfig$ZkHosts KafkaSpout SpoutConfig StringScheme])
+            [storm.kafka KafkaConfig KafkaConfig$ZkHosts KafkaConfig$StaticHosts KafkaSpout SpoutConfig StringScheme])
   (:use     [backtype.storm clojure config])
   (:gen-class))
+
+;;(def kafka-hosts (KafkaConfig$StaticHosts/fromHostString ["localhost:9092"] 1))
+(def kafka-zk-hosts (new KafkaConfig$ZkHosts "localhost:2181" "/brokers"))
+
+(def ^{:private true
+       :doc "kafka spout config definition"}
+  spout-config (let [cfg (SpoutConfig. kafka-zk-hosts "twitter" "/kafkastorm" "discovery")]
+                 (set! (. cfg scheme) (StringScheme.))
+                 ;; to test whether spout
+                 ;; works. -1 = start with latest offset, -2 = start
+                 ;; with earliest offset, according to
+                 ;; http://stackoverflow.com/questions/17807292/kafkaspout-is-not-receiving-anything-from-kafka
+                 (.forceStartOffsetTime cfg -2)
+                 cfg))
+
+(def kafka-spout (KafkaSpout. spout-config))
+
+
+
 
 (defspout sentence-spout ["sentence"]
   [conf context collector]
@@ -42,7 +61,7 @@
 (defn mk-topology []
 
   (topology
-   {"1" (spout-spec sentence-spout)}
+   {"1" (spout-spec kafka-spout)}
    {"3" (bolt-spec {"1" :shuffle}
                    split-sentence
                    :p 5)
