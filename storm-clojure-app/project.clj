@@ -9,4 +9,5 @@
   :java-source-paths ["src/jvm"]
   :main storm-clojure-app.core
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:uberjar {:aot :all}}
+  :repl-options {:port 51822})

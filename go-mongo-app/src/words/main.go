@@ -6,6 +6,7 @@ import (
     "net/http"
     "github.com/gorilla/mux"
 	"gopkg.in/mgo.v2"
+	"os"
 )
 
 // Word Data structure for word
@@ -17,7 +18,13 @@ type Word struct {
 // GetWords Function to fetch words from MongoDB
 func GetWords(w http.ResponseWriter, r *http.Request) {
 
-	Host := []string{"127.0.0.1:27017"}
+	var hostString = os.Getenv("MONGODB")
+
+	if len(hostString) == 0 {
+		hostString="127.0.0.1:27017"
+    }
+	
+	Host := []string{hostString}
 	session, err := mgo.DialWithInfo(&mgo.DialInfo{Addrs: Host})
 	if err != nil {
 		log.Fatal(err)

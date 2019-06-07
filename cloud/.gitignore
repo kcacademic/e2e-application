@@ -3,3 +3,4 @@
 /service-registry
 /hystrix-dashboard
 /zipkin-server
+/api-gateway
