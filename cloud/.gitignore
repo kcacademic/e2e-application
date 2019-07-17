@@ -4,3 +4,4 @@
 /hystrix-dashboard
 /zipkin-server
 /api-gateway
+/auth-server
