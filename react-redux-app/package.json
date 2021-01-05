@@ -9,7 +9,7 @@
     "e2e": "node_modules/.bin/cucumber-js -f json:features/reports/report.json"
   },
   "dependencies": {
-    "axios": "0.18.0",
+    "axios": "0.21.1",
     "css-loader": "0.28.11",
     "node-sass": "4.8.3",
     "prop-types": "15.6.0",
