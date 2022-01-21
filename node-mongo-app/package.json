@@ -17,7 +17,7 @@
     "express-basic-auth": "^1.1.6",
     "hystrixjs": "^0.2.0",
     "install": "^0.12.2",
-    "log4js": "^4.0.2",
+    "log4js": "^6.4.0",
     "mongoose": "^5.4.4",
     "npm": "^6.8.0",
     "prom-client": "^11.2.1",
